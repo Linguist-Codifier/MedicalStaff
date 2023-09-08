@@ -24,8 +24,8 @@ namespace MedicalRecordsSystem.WebService
 
             Builder.Services.AddDbContext<SystemDbContext>(options =>
             {
-                //options.UseSqlServer(Builder.Configuration.GetConnectionString("DatabaseConnectionString")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-                options.UseInMemoryDatabase("development").UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                options.UseSqlServer(Builder.Configuration.GetConnectionString("DatabaseConnectionString")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                //options.UseInMemoryDatabase("development").UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
 
             Builder.Services.AddControllers();

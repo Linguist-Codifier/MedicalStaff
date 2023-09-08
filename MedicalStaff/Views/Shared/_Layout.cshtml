@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@this.ViewData["Title"] - AlmostHackers</title>
+    <title>@this.ViewData["Title"] - Medical Staff</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/AlmostHackers.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/MedicalStaff.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -19,7 +19,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="StartUp" asp-action="HomePage">Login</a>
+                            <a id="signin-header" class="nav-link text-dark" asp-controller="StartUp" asp-action="SignIn">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="signup-header" class="nav-link text-dark" asp-controller="StartUp" asp-action="SignUp">SignUp</a>
                         </li>
                     </ul>
                 </div>
@@ -31,9 +34,9 @@
             @this.RenderBody()
         </main>
     </div>
-    <footer class="border-top footer text-muted">
+    <footer class="footer text-muted" style="margin-top: 30rem;">
         <div class="container">
-            &copy; 2023 - AlmostHackers
+            &copy; 2023 - MedicalStaff
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -31,7 +31,7 @@ namespace MedicalStaff
 
             application.UseAuthorization();
 
-            application.MapControllerRoute(name: "default", pattern: "{controller=StartUp}/{action=HomePage}");
+            application.MapControllerRoute(name: "default", pattern: "{controller=StartUp}/{action=SignIn}");
 
             application.Run();
         }

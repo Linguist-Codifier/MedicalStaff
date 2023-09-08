@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MedicalStaff.Models
 {
-    public sealed class LoginViewModel
+    public sealed class SignInViewModel
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "The CPF is a requirered field.")]
         [StringLength(maximumLength: 14, MinimumLength = 14)]

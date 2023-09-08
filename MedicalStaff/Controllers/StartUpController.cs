@@ -15,18 +15,15 @@ namespace MedicalStaff.Controllers
         }
 
         [HttpGet]
-        public IActionResult HomePage()
+        public IActionResult SignIn()
         {
-            return this.View(new LoginViewModel());
+            return this.View(new SignInViewModel());
         }
 
-        [HttpPost]
-        public IActionResult Login()
+        [HttpGet]
+        public IActionResult SignUp()
         {
-            if (!this.ModelState.IsValid)
-                return this.RedirectToAction("HomePage");
-
-            return this.View();
+            return this.View(new SignUpViewModel());
         }
 
         public IActionResult MedicalRecordsPage()
