@@ -1,2 +1,0 @@
-﻿[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessage(category: "Compiler Layer Static Analysis", checkId: "IDE0001:Simplify Names", Justification = "Use C# Compiler and .NET FCL without aliases")]
-[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessage(category: "Compiler Layer Static Analysis", checkId: "IDE0003:Simplify Names", Justification = "Use C# Compiler and .NET FCL without aliases")]
