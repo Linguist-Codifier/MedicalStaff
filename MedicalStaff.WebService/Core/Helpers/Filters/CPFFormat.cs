@@ -2,7 +2,7 @@
 using MedicalStaff.WebService.Core.Helpers.Analysers;
 using MedicalStaff.WebService.Core.Helpers.Properties;
 
-namespace MedicalStaff.WebService.Core.Helpers.Attributes
+namespace MedicalStaff.WebService.Core.Helpers.Filters
 {
     /// <summary>
     /// Specifies that the target value should be a CPF.

@@ -4,15 +4,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using System.ComponentModel.DataAnnotations;
 using MedicalStaff.WebService.Core.Data;
-using MedicalStaff.WebService.Core.Helpers.Attributes;
+using System.ComponentModel.DataAnnotations;
 using MedicalStaff.WebService.Core.Interfaces;
 using MedicalStaff.WebService.Core.Helpers.Mappers;
 using MedicalStaff.WebService.Core.Helpers.Analysers;
-using MedicalStaff.WebService.Core.Models.Db.Patient;
-using MedicalStaff.WebService.Core.Models.Transfer.Patient.SignUp;
 using MedicalStaff.WebService.Core.Services.Accounts;
+using MedicalStaff.WebService.Core.Models.Db.Patient;
+using MedicalStaff.WebService.Core.Helpers.Filters;
+using MedicalStaff.WebService.Core.Models.Transfer.Patient.SignUp;
 
 namespace MedicalStaff.WebService.Controllers
 {
@@ -33,16 +33,16 @@ namespace MedicalStaff.WebService.Controllers
         /// <summary>
         /// Retrieves the patients accounts.
         /// </summary>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="Core.Models.Db.Patient.PatientAccount"/>.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="PatientAccount"/>.</returns>
         [HttpGet("accounts")]
-        public async Task<ActionResult<IEnumerable<Core.Models.Db.Patient.PatientAccount>>> GetPatientsAccountsAsync()
-            => this.Ok(await this.QueryAccountsAsync<Core.Models.Db.Patient.PatientAccount>());
+        public async Task<ActionResult<IEnumerable<PatientAccount>>> GetPatientsAccountsAsync()
+            => this.Ok(await this.QueryAccountsAsync<PatientAccount>());
 
         /// <summary>
         /// Retrieves a patient account based on the CPF of theirs.
         /// </summary>
         /// <param name="CPF">The account's CPF.</param>
-        /// <returns>The requested <see cref="Core.Models.Db.Patient.PatientAccount"/>.</returns>
+        /// <returns>The requested <see cref="PatientAccount"/>.</returns>
         [HttpGet("credential/{CPF}")]
         public async Task<ActionResult<PatientAccountCrendential>> GetPatientAccountAsync([Required][CPF] String CPF)
         {
@@ -58,9 +58,9 @@ namespace MedicalStaff.WebService.Controllers
         /// Creates a medical practioner account.
         /// </summary>
         /// <param name="signUp">The patient sign up data.</param>
-        /// <returns>The created <see cref="Core.Models.Db.Patient.PatientAccount"/>.</returns>
+        /// <returns>The created <see cref="PatientAccount"/>.</returns>
         [HttpPost("account")]
-        public async Task<ActionResult<Core.Models.Db.Patient.PatientAccount>> CreatePatientAsync([Required][FromBody] PatientSignUpDTO signUp)
+        public async Task<ActionResult<PatientAccount>> CreatePatientAsync([Required][FromBody] PatientSignUpDTO signUp)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace MedicalStaff.WebService.Controllers
 
                 if (PatientCredentials.IsNullOrEmpty())
                 {
-                    IPatientAccount Created = await this.CreateAccount<Core.Models.Db.Patient.PatientAccount>(new Core.Models.Db.Patient.PatientAccount(signUp));
+                    IPatientAccount Created = await this.CreateAccount<PatientAccount>(new PatientAccount(signUp));
 
                     return this.StatusCode(HttpStatusCode.Created.ToInt32(), Created);
                 }
@@ -88,9 +88,9 @@ namespace MedicalStaff.WebService.Controllers
         /// <param name="targetPatient">The new and/or updated patient sign up data.</param>
         /// <returns>The updated medical practioner sign up data.</returns>
         [HttpPut("account/{CPF}")]
-        public async Task<ActionResult<Core.Models.Db.Patient.PatientAccount>> UpdatePatientAsync([Required][CPF] String CPF, [Required][FromBody] PatientSignUpDTO targetPatient)
+        public async Task<ActionResult<PatientAccount>> UpdatePatientAsync([Required][CPF] String CPF, [Required][FromBody] PatientSignUpDTO targetPatient)
         {
-            Core.Models.Db.Patient.PatientAccount CurrentPatient = await this.RetrieveAccountAsync<Core.Models.Db.Patient.PatientAccount>(CPF);
+            PatientAccount CurrentPatient = await this.RetrieveAccountAsync<PatientAccount>(CPF);
 
             if (CurrentPatient.IsValid())
             {
@@ -99,7 +99,7 @@ namespace MedicalStaff.WebService.Controllers
                 CurrentPatient.Password = targetPatient.Password;
                 CurrentPatient.Email = targetPatient.Email;
 
-                Core.Models.Db.Patient.PatientAccount UpdatedPatient = await this.UpdateAccountAsync<Core.Models.Db.Patient.PatientAccount>(new Core.Models.Db.Patient.PatientAccount(CurrentPatient));
+                PatientAccount UpdatedPatient = await this.UpdateAccountAsync<PatientAccount>(new PatientAccount(CurrentPatient));
 
                 if (UpdatedPatient.IsValid())
                     return this.Ok(UpdatedPatient);
@@ -116,14 +116,14 @@ namespace MedicalStaff.WebService.Controllers
         /// <param name="CPF">The patient CPF(The Brazilian national-wide unique identification number).</param>
         /// <returns>The deleted patient sign up data.</returns>
         [HttpDelete("account/{CPF}")]
-        public async Task<ActionResult<Core.Models.Db.Patient.PatientAccount>> DeletePatientAsync([Required][CPF] String CPF)
+        public async Task<ActionResult<PatientAccount>> DeletePatientAsync([Required][CPF] String CPF)
         {
-            Core.Models.Db.Patient.PatientAccount CurrentPatient = await this.RetrieveAccountAsync<Core.Models.Db.Patient.PatientAccount>(CPF);
+            PatientAccount CurrentPatient = await this.RetrieveAccountAsync<PatientAccount>(CPF);
 
             if (CurrentPatient.IsValid())
             {
-                if (await this.DeleteAccount<Core.Models.Db.Patient.PatientAccount>(CPF))
-                    return this.Ok(new Core.Models.Db.Patient.PatientAccount(CurrentPatient));
+                if (await this.DeleteAccount<PatientAccount>(CPF))
+                    return this.Ok(new PatientAccount(CurrentPatient));
 
                 return this.StatusCode(HttpStatusCode.InternalServerError.ToInt32());
             }

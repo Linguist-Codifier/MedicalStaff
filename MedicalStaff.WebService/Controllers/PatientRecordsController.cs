@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -12,7 +13,6 @@ using MedicalStaff.WebService.Core.Helpers.Analysers;
 using MedicalStaff.WebService.Core.Models.Db.Records;
 using MedicalStaff.WebService.Core.Helpers.Properties;
 using MedicalStaff.WebService.Core.Models.Transfer.PatientRecordDTO;
-using System.Linq;
 
 namespace MedicalStaff.WebService.Controllers
 {

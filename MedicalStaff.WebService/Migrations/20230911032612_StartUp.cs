@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MedicalStaff.WebService.Migrations
 {
     /// <inheritdoc />
-    public partial class StartUp_Migration : Migration
+    public partial class StartUp : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -35,7 +35,7 @@ namespace MedicalStaff.WebService.Core.Helpers.Analysers
             {
                 return !((IPhysicianAccount)_).ID.Default() && ((IPhysicianAccount)_).CRM is not null && ((IPhysicianAccount)_).CPF is not null
                     && ((IPhysicianAccount)_).Name is not null && ((IPhysicianAccount)_).Email is not null
-                    && ((IPhysicianAccount)_).Password is not null && ((IPhysicianAccount)_).Role is Role.MedicalPractioner;
+                    && ((IPhysicianAccount)_).Password is not null && ((IPhysicianAccount)_).Role is Role.Physician;
             }
 
             if (typeof(TCredential).Implements<IPatientAccount>())

@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using MedicalStaff.WebService.Core.Interfaces;
 using MedicalStaff.WebService.Core.Helpers.Analysers;
-using MedicalStaff.WebService.Core.Helpers.Attributes;
+using MedicalStaff.WebService.Core.Helpers.Filters;
 using MedicalStaff.WebService.Core.Models.Transfer.PatientRecordDTO;
 using System.Globalization;
 using System.Text.Json.Nodes;

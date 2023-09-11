@@ -1,15 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-using MedicalStaff.WebService.Core.Helpers.Analysers;
+﻿using MedicalStaff.WebService.Core.Helpers.Analysers;
 using MedicalStaff.WebService.Core.Helpers.Properties;
+using System.ComponentModel.DataAnnotations;
 
-namespace MedicalStaff.WebService.Core.Helpers.Attributes
+namespace MedicalStaff.WebService.Core.Helpers.Filters
 {
     /// <summary>
-    /// Specifies that the target value should be a CPF.
+    /// Specifies that the target value should be at E.164 format.
     /// </summary>
-    public class CRM : ValidationAttribute
+    public class E164 : ValidationAttribute
     {
-
         /// <summary>
         /// The message to display if model validation fails.
         /// </summary>
@@ -18,7 +17,7 @@ namespace MedicalStaff.WebService.Core.Helpers.Attributes
         /// <summary>
         /// Initializes a new instance of the <see cref="CRM"/> class.
         /// </summary>
-        public CRM() { }
+        public E164() { }
 
         /// <summary>
         /// 
@@ -37,12 +36,12 @@ namespace MedicalStaff.WebService.Core.Helpers.Attributes
             if (((System.String)value).Empty())
                 return new ValidationResult("Value cannot be empty.");
 
-            if (!RegularExpressionsUtility.Matches(ExpressionType.FormattedCRM, (System.String)value) && !RegularExpressionsUtility.Matches(ExpressionType.UnformattedCRM, (System.String)value))
+            if (!RegularExpressionsUtility.Matches(ExpressionType.E164, (System.String)value))
             {
-                if(!System.String.IsNullOrEmpty(this.ErrorMessage))
+                if (!System.String.IsNullOrEmpty(this.ErrorMessage))
                     return new ValidationResult(this.ErrorMessage);
 
-                return new ValidationResult("Invalid CRM format. Format requierd is: CRM/SP 000000 | CRM/SP 000000");
+                return new ValidationResult("Foramt is invalid. Valid format is E.164 - 0011234455667");
             }
 
             return ValidationResult.Success;

@@ -4,7 +4,7 @@ using MedicalStaff.WebService.Core.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using MedicalStaff.WebService.Core.Helpers.Properties;
 using MedicalStaff.WebService.Core.Models.Transfer.Physician.SignUp;
-using MedicalStaff.WebService.Core.Helpers.Attributes;
+using MedicalStaff.WebService.Core.Helpers.Filters;
 
 namespace MedicalStaff.WebService.Core.Models.Db.Physician
 {
@@ -67,7 +67,7 @@ namespace MedicalStaff.WebService.Core.Models.Db.Physician
         /// </summary>
         [Required(AllowEmptyStrings = false, ErrorMessage = "The User's account type is a required field.")]
         [Description("The patient's account type.")]
-        public Role Role { get => Role.MedicalPractioner; set { } }
+        public Role Role { get => Role.Physician; set { } }
 
         #region Constructors
 

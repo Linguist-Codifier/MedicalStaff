@@ -43,6 +43,6 @@ namespace MedicalStaff.WebService.Core.Interfaces
         /// Represents the type of access this accout would have.
         /// </summary>
         [Description("Represents the type of access this accout would have.")]
-        public Role Role { get => Role.MedicalPractioner; }
+        public Role Role { get => Role.Physician; }
     }
 }

@@ -7,7 +7,7 @@ using MedicalStaff.WebService.Core.Interfaces;
 namespace MedicalStaff.WebService.Core.Services.Records
 {
     /// <summary>
-    /// 
+    /// Provides access to the common patient records services.
     /// </summary>
     public partial class PatientRecordsService : Infrastructure.Records.RecordsRepository
     {

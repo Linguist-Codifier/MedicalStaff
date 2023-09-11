@@ -4,7 +4,7 @@ using MedicalStaff.WebService.Core.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using MedicalStaff.WebService.Core.Helpers.Properties;
 using MedicalStaff.WebService.Core.Models.Transfer.Patient.SignUp;
-using MedicalStaff.WebService.Core.Helpers.Attributes;
+using MedicalStaff.WebService.Core.Helpers.Filters;
 
 namespace MedicalStaff.WebService.Core.Models.Db.Patient
 {

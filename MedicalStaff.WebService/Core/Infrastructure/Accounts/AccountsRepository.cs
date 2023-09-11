@@ -13,7 +13,7 @@ using MedicalStaff.WebService.Core.Models.Db.Physician;
 namespace MedicalStaff.WebService.Core.Infrastructure.Accounts
 {
     /// <summary>
-    /// 
+    /// Manages accounts repositories.
     /// </summary>
     public partial class AccountsRepository : ControllerBase
     {

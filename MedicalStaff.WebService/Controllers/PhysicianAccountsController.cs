@@ -10,7 +10,7 @@ using MedicalStaff.WebService.Core.Interfaces;
 using MedicalStaff.WebService.Core.Helpers.Mappers;
 using MedicalStaff.WebService.Core.Services.Accounts;
 using MedicalStaff.WebService.Core.Helpers.Analysers;
-using MedicalStaff.WebService.Core.Helpers.Attributes;
+using MedicalStaff.WebService.Core.Helpers.Filters;
 using MedicalStaff.WebService.Core.Models.Db.Physician;
 using MedicalStaff.WebService.Core.Models.Transfer.Physician.SignUp;
 
@@ -46,10 +46,10 @@ namespace MedicalStaff.WebService.Controllers
         [HttpGet("credential/{CPF}")]
         public async Task<ActionResult<MedicalAccountCredential>> GetMedicalPractionerAccountAsync([Required][CPF] String CPF)
         {
-            IMedicalAccountCredential MedicalPractionerAccountCredentials = await this.RequestAccountCredentialAsync<MedicalAccountCredential>(CPF);
+            IMedicalAccountCredential PhysicianCredentials = await this.RequestAccountCredentialAsync<MedicalAccountCredential>(CPF);
 
-            if (!MedicalPractionerAccountCredentials.IsNullOrEmpty())
-                return this.Ok((MedicalAccountCredential)MedicalPractionerAccountCredentials);
+            if (!PhysicianCredentials.IsNullOrEmpty())
+                return this.Ok((MedicalAccountCredential)PhysicianCredentials);
 
             return this.NotFound();
         }
@@ -64,13 +64,13 @@ namespace MedicalStaff.WebService.Controllers
         {
             try
             {
-                IMedicalAccountCredential MedicalPractionerCredentials = await this.RequestAccountCredentialAsync<MedicalAccountCredential>(signUp.CPF);
+                IMedicalAccountCredential PhysicianCredentials = await this.RequestAccountCredentialAsync<MedicalAccountCredential>(signUp.CPF);
 
-                if (MedicalPractionerCredentials.IsNullOrEmpty())
+                if (PhysicianCredentials.IsNullOrEmpty())
                 {
-                    IPhysicianAccount CreatedMedicalPractioner = await this.CreateAccount<PhysicianAccount>(new PhysicianAccount(signUp));
+                    IPhysicianAccount CreatedPhysician = await this.CreateAccount<PhysicianAccount>(new PhysicianAccount(signUp));
 
-                    return this.StatusCode(HttpStatusCode.Created.ToInt32(), CreatedMedicalPractioner);
+                    return this.StatusCode(HttpStatusCode.Created.ToInt32(), CreatedPhysician);
                 }
 
                 return this.StatusCode(HttpStatusCode.Forbidden.ToInt32());
@@ -90,20 +90,20 @@ namespace MedicalStaff.WebService.Controllers
         [HttpPut("account/{CPF}")]
         public async Task<ActionResult<PhysicianAccount>> UpdateMedicalPractionerAccountAsync([Required][CPF]  String CPF, [FromBody][Required] PhysicianAccountDTO targetMedicalPractioner)
         {
-            PhysicianAccount CurrentMedicalPractioner = await this.RetrieveAccountAsync<PhysicianAccount>(CPF);
+            PhysicianAccount CurrentPhysician = await this.RetrieveAccountAsync<PhysicianAccount>(CPF);
 
-            if (CurrentMedicalPractioner.IsValid())
+            if (CurrentPhysician.IsValid())
             {
-                CurrentMedicalPractioner.CPF = targetMedicalPractioner.CPF;
-                CurrentMedicalPractioner.CRM = targetMedicalPractioner.CRM;
-                CurrentMedicalPractioner.Name = targetMedicalPractioner.Name;
-                CurrentMedicalPractioner.Password = targetMedicalPractioner.Password;
-                CurrentMedicalPractioner.Email = targetMedicalPractioner.Email;
+                CurrentPhysician.CPF = targetMedicalPractioner.CPF;
+                CurrentPhysician.CRM = targetMedicalPractioner.CRM;
+                CurrentPhysician.Name = targetMedicalPractioner.Name;
+                CurrentPhysician.Password = targetMedicalPractioner.Password;
+                CurrentPhysician.Email = targetMedicalPractioner.Email;
 
-                PhysicianAccount UpdatedCurrentMedicalPractioner = await this.UpdateAccountAsync<PhysicianAccount>(new PhysicianAccount(CurrentMedicalPractioner));
+                PhysicianAccount UpdatedCurrentPhysician = await this.UpdateAccountAsync<PhysicianAccount>(new PhysicianAccount(CurrentPhysician));
 
-                if (UpdatedCurrentMedicalPractioner.IsValid())
-                    return this.Ok(UpdatedCurrentMedicalPractioner);
+                if (UpdatedCurrentPhysician.IsValid())
+                    return this.Ok(UpdatedCurrentPhysician);
 
                 return this.BadRequest();
             }
@@ -118,12 +118,12 @@ namespace MedicalStaff.WebService.Controllers
         [HttpDelete("account/{CPF}")]
         public async Task<ActionResult<PhysicianAccount>> DeleteMedicalPractionerAsync([Required][CPF] String CPF)
         {
-            PhysicianAccount CurrentMedicalPractioner = await this.RetrieveAccountAsync<PhysicianAccount>(CPF);
+            PhysicianAccount CurrentPhysician = await this.RetrieveAccountAsync<PhysicianAccount>(CPF);
 
-            if (CurrentMedicalPractioner.IsValid())
+            if (CurrentPhysician.IsValid())
             {
                 if (await this.DeleteAccount<PhysicianAccount>(CPF))
-                    return this.Ok(new PhysicianAccount(CurrentMedicalPractioner));
+                    return this.Ok(new PhysicianAccount(CurrentPhysician));
 
                 return this.StatusCode(HttpStatusCode.InternalServerError.ToInt32());
             }

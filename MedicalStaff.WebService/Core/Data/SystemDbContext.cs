@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MedicalStaff.WebService.Core.Models.Db.Physician;
 using MedicalStaff.WebService.Core.Models.Db.Patient;
 using MedicalStaff.WebService.Core.Models.Db.Records;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using MedicalStaff.WebService.Core.Models.Db.Physician;
 
 namespace MedicalStaff.WebService.Core.Data
 {
@@ -19,9 +19,9 @@ namespace MedicalStaff.WebService.Core.Data
         public SystemDbContext([NotNull] DbContextOptions options) : base(options) { }
 
 
-        #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        #pragma warning disable CS1591
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+        #pragma warning restore CS1591
         {
             modelBuilder.ApplyConfiguration<PhysicianAccount>(new PhysicianAccountEntity());
             modelBuilder.ApplyConfiguration<PatientAccount>(new PatientAccountEntity());

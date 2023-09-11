@@ -1,4 +1,4 @@
-﻿using MedicalStaff.WebService.Core.Helpers.Attributes;
+﻿using MedicalStaff.WebService.Core.Helpers.Filters;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;

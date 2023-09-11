@@ -14,7 +14,7 @@ using MedicalStaff.WebService.Core.Helpers.Properties;
 namespace MedicalStaff.WebService.Core.Infrastructure.Records
 {
     /// <summary>
-    /// 
+    /// Manages the <see cref="PatientRecords"/> repository.
     /// </summary>
     public partial class RecordsRepository : ControllerBase
     {

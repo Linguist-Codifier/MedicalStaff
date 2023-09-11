@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedicalStaff.WebService.Migrations
 {
     [DbContext(typeof(SystemDbContext))]
-    [Migration("20230910233902_StartUp_Migration")]
-    partial class StartUp_Migration
+    [Migration("20230911032612_StartUp")]
+    partial class StartUp
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
