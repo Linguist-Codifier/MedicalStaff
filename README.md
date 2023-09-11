@@ -35,7 +35,9 @@ Both Forms-based and web-based applications can be designed and developed using 
 
 - After openning the Solution, Visual Studio will check any missing dependency and will try to download them from NuGet.
 
-- After everything is set up, compile the solution as follows:
+- After everything is set up, compile the solution by pressing CTRL + SHIFT + B and run it as follows:
 
-<h6><img src=""/></h6>
+<h6><img src="./Docs/Images/ExecutingSolution.PNG"/></h6>
+
+There are two main modes of execution, one is in Debugging mode and the other is without debugging at runtime. Choose one.
 
