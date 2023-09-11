@@ -22,8 +22,7 @@ Both Forms-based and web-based applications can be designed and developed using 
 
 ## Database - Download & Install the Microsoft SQL Server Management Studio
 
-- [Go to the Download SQL Server Management Studio download page](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16#download-ssms)
-- [Foloows this Guide](https://www.nobledesktop.com/how-to-install-sql-server-management-studio)
+- [Download SQL Server Management Studio](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16#download-ssms) and follow [this Guide](https://www.nobledesktop.com/how-to-install-sql-server-management-studio)
 
 ### Executing the API
 
@@ -56,3 +55,9 @@ Both Forms-based and web-based applications can be designed and developed using 
 <h6><img src="./Docs/Images/ExecutingSolution.PNG"/></h6>
 
 There are two main modes of execution, one is in Debugging mode and the other is without debugging at runtime. It can also be done by either pressing CTRL + F5 (For runtime debugging) or F5 (No debugging).
+
+# Executing
+
+<h6><img src="Docs/Images/APIOnExecuting.PNG" /></h6>
+
+[Download sample video here](./Docs/Videos/Preview.wmv)
