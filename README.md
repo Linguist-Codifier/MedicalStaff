@@ -26,9 +26,9 @@ Both Forms-based and web-based applications can be designed and developed using 
 
 ### Executing the API
 
-- #### Donwload the Solution
+- #### [Donwload](https://github.com/Linguist-Codifier/MedicalStaff/archive/refs/heads/master.zip) the Solution or clone it as follows
 ```bash
-  #Clone this repository or download it as ZIP
+  #Clone this repository
   $ git clone https://github.com/Linguist-Codifier/MedicalStaff.git
 ```
 
@@ -60,4 +60,4 @@ There are two main modes of execution, one is in Debugging mode and the other is
 
 <h6><img src="Docs/Videos/Demonstration.gif" /></h6>
 
-[Download sample video here](./Docs/Videos/Preview.wmv)
+[Download demonstration](https://github.com/Linguist-Codifier/MedicalStaff/archive/refs/heads/master.zip)
