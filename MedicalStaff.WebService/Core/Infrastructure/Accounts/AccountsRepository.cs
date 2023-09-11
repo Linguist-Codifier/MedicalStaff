@@ -17,12 +17,15 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Accounts
     /// </summary>
     public partial class AccountsRepository : ControllerBase
     {
+        /// <summary>
+        /// The database context.
+        /// </summary>
         private readonly SystemDbContext SysContext;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of <see cref="AccountsRepository"/>.
         /// </summary>
-        /// <param name="applicationDbContext"></param>
+        /// <param name="applicationDbContext">The system's database context through where the <see cref="AccountsRepository"/> access and perform database-centered critical IO operations.</param>
         protected AccountsRepository(SystemDbContext applicationDbContext)
             => this.SysContext = applicationDbContext;
 

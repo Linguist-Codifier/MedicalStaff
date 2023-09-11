@@ -18,12 +18,15 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Records
     /// </summary>
     public partial class RecordsRepository : ControllerBase
     {
+        /// <summary>
+        /// The database context.
+        /// </summary>
         private readonly SystemDbContext SysContext;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of <see cref="RecordsRepository"/>.
         /// </summary>
-        /// <param name="applicationDbContext"></param>
+        /// <param name="applicationDbContext">The system's database context through where the <see cref="RecordsRepository"/> access and perform database-centered critical IO operations.</param>
         protected RecordsRepository(SystemDbContext applicationDbContext)
             => this.SysContext = applicationDbContext;
 
