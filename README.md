@@ -20,8 +20,4 @@ Both Forms-based and web-based applications can be designed and developed using 
 - [Download Visual Studio 2022 Community](https://visualstudio.microsoft.com/pt-br/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&workload=dotnet-dotnetwebcloud&passive=false#dotnet)
 - [Installation Guide](https://learn.microsoft.com/en-us/visualstudio/install/install-visual-studio?view=vs-2022) - By installing, choose the ASP.NET and Web Applications workload container and follow along with the installation guide.
 
-## .NET - Downloading Runtimes and SDKs - Windows 10
 
-- [Download .NET 6 (ARM64)](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-6.0.413-windows-arm64-installer) - Includes .NET 6 and ASP.NET Runtimes
-- [Download .NET 6 (x64)](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-6.0.413-windows-x64-installer) - Includes .NET 6 and ASP.NET Runtimes
-- [Download .NET 6 (x86)](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-6.0.413-windows-x64-installer) - Includes .NET 6 and ASP.NET Runtimes
