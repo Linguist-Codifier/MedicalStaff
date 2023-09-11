@@ -10,6 +10,14 @@ Health professionals. The medical staff as well as the patients will be able to 
 
 # Setup
 
-##### - [How to install Visual Studio 2022]()
+##### - How to install Visual Studio 2022
+
+<h6><img src="./Docs/Images/DownloadsPage.PNG"/></h6>
+
+Microsoft Visual Studio is an integrated development environment (IDE) from Microsoft. It is used to develop computer programs for Microsoft Windows. Visual Studio is one stop shop for all applications built on the .Net platform. One can develop, debug and run applications using Visual Studio.
+Both Forms-based and web-based applications can be designed and developed using this IDE. [See more.](https://visualstudio.microsoft.com/pt-br/downloads/)
+
+- [Download Visual Studio 2022 Community](https://visualstudio.microsoft.com/pt-br/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&workload=dotnet-dotnetwebcloud&passive=false#dotnet)
+- [Installation Guide](https://learn.microsoft.com/en-us/visualstudio/install/install-visual-studio?view=vs-2022) - By installing, choose the ASP.NET and Web Applications workload container and follow along with the installation guide.
 
 
