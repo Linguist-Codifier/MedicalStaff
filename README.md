@@ -20,6 +20,11 @@ Both Forms-based and web-based applications can be designed and developed using 
 - [Download Visual Studio 2022 Community](https://visualstudio.microsoft.com/pt-br/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&workload=dotnet-dotnetwebcloud&passive=false#dotnet)
 - [Installation Guide](https://learn.microsoft.com/en-us/visualstudio/install/install-visual-studio?view=vs-2022) - By installing, choose the ASP.NET and Web Applications workload container and follow along with the installation guide.
 
+## Database - Download & Install the Microsoft SQL Server Management Studio
+
+- [Go to the Download SQL Server Management Studio download page](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16#download-ssms)
+- [Foloows this Guide](https://www.nobledesktop.com/how-to-install-sql-server-management-studio)
+
 ### Executing the API
 
 - #### Donwload the Solution
@@ -27,6 +32,17 @@ Both Forms-based and web-based applications can be designed and developed using 
   #Clone this repository or download it as ZIP
   $ git clone https://github.com/Linguist-Codifier/MedicalStaff.git
 ```
+
+## Configurations
+
+### Choosing whether executing the API with 'Runtime memory as its Database' or with SQL Server
+
+- For 'In memory' database, uncomment this line, and comment the one above at Engine.cs file:
+<h6><img src="Docs/Images/Config.PNG"/></h6>
+
+- For SQL Server database, [get your local SQL Server connection string](https://www.c-sharpcorner.com/article/get-connectionstring-for-sql-server/) and replace the one already set in the appsettings.config file:
+<h6><img src="Docs/Images/ConnectionString.PNG"/></h6>
+
 - #### Open the Solution
 
 <h6><img src="./Docs/Images/SolutionFile.PNG"/></h6> 
@@ -40,4 +56,3 @@ Both Forms-based and web-based applications can be designed and developed using 
 <h6><img src="./Docs/Images/ExecutingSolution.PNG"/></h6>
 
 There are two main modes of execution, one is in Debugging mode and the other is without debugging at runtime. It can also be done by either pressing CTRL + F5 (For runtime debugging) or F5 (No debugging).
-
