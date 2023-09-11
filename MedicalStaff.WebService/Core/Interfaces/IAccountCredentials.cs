@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MedicalRecordsSystem.WebService.Core.Interfaces
+namespace MedicalStaff.WebService.Core.Interfaces
 {
     /// <summary>
     /// Provides the base interface for any system account-model.

@@ -1,4 +1,4 @@
-﻿namespace MedicalRecordsSystem.WebService.Core.Helpers.Properties
+﻿namespace MedicalStaff.WebService.Core.Helpers.Properties
 {
     /// <summary>
     /// 

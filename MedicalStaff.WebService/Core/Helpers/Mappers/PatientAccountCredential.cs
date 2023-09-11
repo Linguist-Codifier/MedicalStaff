@@ -1,7 +1,7 @@
 ﻿using System;
-using MedicalRecordsSystem.WebService.Core.Interfaces;
+using MedicalStaff.WebService.Core.Interfaces;
 
-namespace MedicalRecordsSystem.WebService.Core.Helpers.Mappers
+namespace MedicalStaff.WebService.Core.Helpers.Mappers
 {
     /// <summary>
     /// Represents a Patient account credentials.

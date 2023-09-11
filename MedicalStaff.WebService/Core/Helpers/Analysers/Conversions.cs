@@ -2,14 +2,22 @@
 using System.Net;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Routing.Template;
 
-namespace MedicalRecordsSystem.WebService.Core.Helpers.Analysers
+namespace MedicalStaff.WebService.Core.Helpers.Analysers
 {
     /// <summary>
     /// 
     /// </summary>
     public static class Conversions
     {
+        /// <summary>
+        /// Determines whether the sequence is empty or not.
+        /// </summary>
+        /// <param name="_">This current sequence.</param>
+        /// <returns><see langword="true"></see> if this current sequence is empty; otherwise <see langword="false"></see>.</returns>
+        public static Boolean Empty(this IEnumerable<Char> _) => !_.Any<Char>();
+
         /// <summary>
         /// 
         /// </summary>
@@ -64,5 +72,14 @@ namespace MedicalRecordsSystem.WebService.Core.Helpers.Analysers
         /// <param name="_"></param>
         /// <returns></returns>
         public static Boolean Default(this Guid _) => _.Equals(Guid.Empty);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TIn"></typeparam>
+        /// <typeparam name="TOut"></typeparam>
+        /// <param name="_"></param>
+        /// <returns></returns>
+        public static IEnumerable<TOut> As<TIn, TOut>(this IEnumerable<TIn> _) => (IEnumerable<TOut>)_;
     }
 }

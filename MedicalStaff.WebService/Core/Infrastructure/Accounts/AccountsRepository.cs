@@ -3,19 +3,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using MedicalRecordsSystem.WebService.Core.Data;
-using MedicalRecordsSystem.WebService.Core.Interfaces;
-using MedicalRecordsSystem.WebService.Core.Helpers.Analysers;
-using MedicalRecordsSystem.WebService.Core.Models.Runtime;
-using MedicalRecordsSystem.WebService.Core.Models.Db.Patient;
-using MedicalRecordsSystem.WebService.Core.Models.Db.MedicalPractioner;
+using MedicalStaff.WebService.Core.Data;
+using MedicalStaff.WebService.Core.Interfaces;
+using MedicalStaff.WebService.Core.Helpers.Analysers;
+using MedicalStaff.WebService.Core.Models.Runtime;
+using MedicalStaff.WebService.Core.Models.Db.Patient;
+using MedicalStaff.WebService.Core.Models.Db.Physician;
 
-namespace MedicalRecordsSystem.WebService.Core.Infrastructure.Accounts
+namespace MedicalStaff.WebService.Core.Infrastructure.Accounts
 {
     /// <summary>
     /// 
     /// </summary>
-    public class Accounts : ControllerBase
+    public partial class AccountsRepository : ControllerBase
     {
         private readonly SystemDbContext SysContext;
 
@@ -23,10 +23,8 @@ namespace MedicalRecordsSystem.WebService.Core.Infrastructure.Accounts
         /// 
         /// </summary>
         /// <param name="applicationDbContext"></param>
-        protected Accounts(SystemDbContext applicationDbContext)
-        {
-            this.SysContext = applicationDbContext;
-        }
+        protected AccountsRepository(SystemDbContext applicationDbContext)
+            => this.SysContext = applicationDbContext;
 
         /// <summary>
         /// 
@@ -37,16 +35,16 @@ namespace MedicalRecordsSystem.WebService.Core.Infrastructure.Accounts
         /// <exception cref="NotImplementedException"></exception>
         protected async Task<TUser> RetrieveAccountAsync<TUser>(String userCPF) where TUser : ISystemUser
         {
-            if (typeof(TUser).Implements<IMedicalPractionerAccount>())
+            if (typeof(TUser).Implements<IPhysicianAccount>())
             {
                 String ProcessedUserCPF = userCPF.RemoveSpecifically(new[] { '.', '-' });
 
-                IMedicalPractionerAccount? SearchedMedicalAccount = await this.SysContext.MedicalPractionerAccounts.FirstOrDefaultAsync(credentials => credentials.CPF == ProcessedUserCPF);
+                IPhysicianAccount? SearchedMedicalAccount = await this.SysContext.PhysicianAccounts.FirstOrDefaultAsync(credentials => credentials.CPF == ProcessedUserCPF);
 
                 if (SearchedMedicalAccount is not null)
                     return (TUser)SearchedMedicalAccount;
 
-                return (TUser)MedicalPractionerAccount.Empty();
+                return (TUser)PhysicianAccount.Empty();
             }
 
             else if (typeof(TUser).Implements<IPatientAccount>())
@@ -76,16 +74,16 @@ namespace MedicalRecordsSystem.WebService.Core.Infrastructure.Accounts
         /// <exception cref="NotImplementedException"></exception>
         protected async Task<TUser> Push<TUser>(TUser user) where TUser : ISystemUser
         {
-            if (typeof(TUser).Implements<IMedicalPractionerAccount>())
+            if (typeof(TUser).Implements<IPhysicianAccount>())
             {
-                _ = await this.SysContext.MedicalPractionerAccounts.AddAsync(SystemUser.Cast<MedicalPractionerAccount>(user));
+                _ = await this.SysContext.PhysicianAccounts.AddAsync(SystemUser.Cast<PhysicianAccount>(user));
 
                 Boolean Saved = await this.SysContext.SaveChangesAsync() > 0;
 
                 if (Saved)
                     return user;
 
-                return (TUser)MedicalPractionerAccount.Empty();
+                return (TUser)PhysicianAccount.Empty();
             }
 
             else if (typeof(TUser).Implements<IPatientAccount>())
@@ -112,14 +110,14 @@ namespace MedicalRecordsSystem.WebService.Core.Infrastructure.Accounts
         /// <returns>An <see cref="IEnumerable{T}"/> of <typeparamref name="TUser"/>.</returns>
         protected async Task<IEnumerable<TUser>> QueryAccountsAsync<TUser>() where TUser : ISystemUser
         {
-            if (typeof(TUser).Implements<IMedicalPractionerAccount>())
-                return (IEnumerable<TUser>)await this.SysContext.MedicalPractionerAccounts.ToListAsync();
+            if (typeof(TUser).Implements<IPhysicianAccount>())
+                return (IEnumerable<TUser>)await this.SysContext.PhysicianAccounts.ToListAsync();
 
             else if (typeof(TUser).Implements<IPatientAccount>())
                 return (IEnumerable<TUser>)await this.SysContext.PatientsAccounts.ToListAsync();
 
             else
-                return (IEnumerable<TUser>)new List<MedicalPractionerAccount>(0);
+                return (IEnumerable<TUser>)new List<PhysicianAccount>(0);
         }
 
         /// <summary>
@@ -131,24 +129,24 @@ namespace MedicalRecordsSystem.WebService.Core.Infrastructure.Accounts
         /// <exception cref="NotImplementedException"></exception>
         protected async Task<TUser> UpdateAccountAsync<TUser>(TUser user) where TUser : ISystemUser
         {
-            if (typeof(TUser).Implements<IMedicalPractionerAccount>())
+            if (typeof(TUser).Implements<IPhysicianAccount>())
             {
                 try
                 {
-                    MedicalPractionerAccount UpdatedDoctor = SystemUser.Cast<MedicalPractionerAccount>(user);
+                    PhysicianAccount UpdatedDoctor = SystemUser.Cast<PhysicianAccount>(user);
 
-                    this.SysContext.MedicalPractionerAccounts.Update(UpdatedDoctor);
+                    this.SysContext.PhysicianAccounts.Update(UpdatedDoctor);
 
                     Boolean Updated = await this.SysContext.SaveChangesAsync() > 0;
 
                     if (Updated)
                         return user;
 
-                    return (TUser)MedicalPractionerAccount.Empty();
+                    return (TUser)PhysicianAccount.Empty();
                 }
                 catch
                 {
-                    return (TUser)MedicalPractionerAccount.Empty();
+                    return (TUser)PhysicianAccount.Empty();
                 }
             }
 
@@ -186,13 +184,13 @@ namespace MedicalRecordsSystem.WebService.Core.Infrastructure.Accounts
         /// <exception cref="NotImplementedException"></exception>
         protected async Task<Boolean> DeleteAccount<TUser>(String userCPF) where TUser : ISystemUser
         {
-            if (typeof(TUser).Implements<IMedicalPractionerAccount>())
+            if (typeof(TUser).Implements<IPhysicianAccount>())
             {
                 try
                 {
-                    IMedicalPractionerAccount OnDeleting = await this.RetrieveAccountAsync<MedicalPractionerAccount>(userCPF);
+                    IPhysicianAccount OnDeleting = await this.RetrieveAccountAsync<PhysicianAccount>(userCPF);
 
-                    this.SysContext.MedicalPractionerAccounts.Remove(new MedicalPractionerAccount(OnDeleting));
+                    this.SysContext.PhysicianAccounts.Remove(new PhysicianAccount(OnDeleting));
 
                     return await this.SysContext.SaveChangesAsync() > 0;
                 }

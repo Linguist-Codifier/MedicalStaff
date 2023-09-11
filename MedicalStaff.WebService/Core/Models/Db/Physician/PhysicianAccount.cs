@@ -1,16 +1,17 @@
 ﻿using System;
 using System.ComponentModel;
-using MedicalRecordsSystem.WebService.Core.Interfaces;
+using MedicalStaff.WebService.Core.Interfaces;
 using System.ComponentModel.DataAnnotations;
-using MedicalRecordsSystem.WebService.Core.Helpers.Properties;
-using MedicalRecordsSystem.WebService.Core.Models.Transfer.MedicalPractioner.SignUp;
+using MedicalStaff.WebService.Core.Helpers.Properties;
+using MedicalStaff.WebService.Core.Models.Transfer.Physician.SignUp;
+using MedicalStaff.WebService.Core.Helpers.Attributes;
 
-namespace MedicalRecordsSystem.WebService.Core.Models.Db.MedicalPractioner
+namespace MedicalStaff.WebService.Core.Models.Db.Physician
 {
     /// <summary>
-    /// Represents an <see cref="IMedicalPractionerAccount"/> type of account.
+    /// Represents an <see cref="IPhysicianAccount"/> type of account.
     /// </summary>
-    public sealed class MedicalPractionerAccount : IMedicalPractionerAccount
+    public sealed class PhysicianAccount : IPhysicianAccount
     {
         /// <summary>
         /// The unique Token for identifying this MedicalPractioner.
@@ -22,7 +23,8 @@ namespace MedicalRecordsSystem.WebService.Core.Models.Db.MedicalPractioner
         /// <summary>
         /// The Brazilian national-wide Medical Practioner Professional Regional Identification Number.
         /// </summary>
-        [Required]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "The CRM is a requiered field.")]
+        [CRM]
         [StringLength(maximumLength: 13, MinimumLength = 12, ErrorMessage = "The CRM is required. Format requierd is: CRM/SP 000000 | CRM/SP 000000")]
         [Description("The Brazilian national-wide Medical Practioner Professional Regional Identification Number.")]
         public String CRM { get; set; }
@@ -30,7 +32,8 @@ namespace MedicalRecordsSystem.WebService.Core.Models.Db.MedicalPractioner
         /// <summary>
         /// The unique(CPF - Brazilian national-wide identification number) Token for identifying this MedicalPractioner.
         /// </summary>
-        [Required]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "The CPF is a requiered field.")]
+        [CPF]
         [StringLength(maximumLength: 14, MinimumLength = 14, ErrorMessage = "The CPF min and max length must be both 14.")]
         [Description("The unique(CPF - Brazilian national-wide identification number) Token for identifying this MedicalPractioner.")]
         public String CPF { get; set; }
@@ -69,7 +72,7 @@ namespace MedicalRecordsSystem.WebService.Core.Models.Db.MedicalPractioner
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of <see cref="MedicalPractionerAccount"/> and bind the specified arguments with its object properties with the specified <see cref="MedicalPractionerAccount"/> object.
+        /// Initializes a new instance of <see cref="PhysicianAccount"/> and bind the specified arguments with its object properties with the specified <see cref="PhysicianAccount"/> object.
         /// </summary>
         /// <param name="ID">The unique national Token for identifying this MedicalPractioner.</param>
         /// <param name="CRM">The Brazilian national-wide Medical Practioner Professional Regional Identification Number.</param>
@@ -77,7 +80,7 @@ namespace MedicalRecordsSystem.WebService.Core.Models.Db.MedicalPractioner
         /// <param name="name">The Medical Practioner's name.</param>
         /// <param name="password">The Medical Practioner's account access password.</param>
         /// <param name="email">The Medical Practioner's account access mail address.</param>
-        public MedicalPractionerAccount(Guid ID, String CRM, String CPF, String name, String email, String password)
+        public PhysicianAccount(Guid ID, String CRM, String CPF, String name, String email, String password)
         {
             this.ID = ID;
             this.CRM = CRM;
@@ -88,10 +91,10 @@ namespace MedicalRecordsSystem.WebService.Core.Models.Db.MedicalPractioner
         }
 
         /// <summary>
-        /// Initializes a new instance of <see cref="MedicalPractionerAccount"/> and bind the specified arguments with its object properties with the specified <see cref="MedicalPractionerAccount"/> object.
+        /// Initializes a new instance of <see cref="PhysicianAccount"/> and bind the specified arguments with its object properties with the specified <see cref="PhysicianAccount"/> object.
         /// </summary>
-        /// <param name="medicalPractioner">Any <see cref="MedicalPractionerAccount"/> instance.</param>
-        public MedicalPractionerAccount(MedicalPractionerAccount medicalPractioner)
+        /// <param name="medicalPractioner">Any <see cref="PhysicianAccount"/> instance.</param>
+        public PhysicianAccount(PhysicianAccount medicalPractioner)
         {
             this.ID = medicalPractioner.ID;
             this.CRM = medicalPractioner.CRM;
@@ -102,10 +105,10 @@ namespace MedicalRecordsSystem.WebService.Core.Models.Db.MedicalPractioner
         }
 
         /// <summary>
-        /// Initializes a new instance of <see cref="MedicalPractionerAccount"/> and bind the specified arguments with its object properties with the specified <see cref="IMedicalPractionerAccount"/> object implementation.
+        /// Initializes a new instance of <see cref="PhysicianAccount"/> and bind the specified arguments with its object properties with the specified <see cref="IPhysicianAccount"/> object implementation.
         /// </summary>
         /// <param name="medicalPractioner">Any <see cref="IPatientAccount"/> implementation.</param>
-        public MedicalPractionerAccount(IMedicalPractionerAccount medicalPractioner)
+        public PhysicianAccount(IPhysicianAccount medicalPractioner)
         {
             this.ID = medicalPractioner.ID;
             this.CRM = medicalPractioner.CRM;
@@ -116,10 +119,10 @@ namespace MedicalRecordsSystem.WebService.Core.Models.Db.MedicalPractioner
         }
 
         /// <summary>
-        /// Initializes a new instance of <see cref="MedicalPractionerAccount"/> and bind the specified arguments with its object properties with the specified <see cref="MedicalPractionerSignUp"/> object implementation.
+        /// Initializes a new instance of <see cref="PhysicianAccount"/> and bind the specified arguments with its object properties with the specified <see cref="PhysicianAccountDTO"/> object implementation.
         /// </summary>
-        /// <param name="medicalPractioner">A <see cref="MedicalPractionerSignUp"/> data-tranfer-model.</param>
-        public MedicalPractionerAccount(MedicalPractionerSignUp medicalPractioner)
+        /// <param name="medicalPractioner">A <see cref="PhysicianAccountDTO"/> data-tranfer-model.</param>
+        public PhysicianAccount(PhysicianAccountDTO medicalPractioner)
         {
             this.ID = Guid.NewGuid();
             this.CRM = medicalPractioner.CRM;
@@ -130,9 +133,9 @@ namespace MedicalRecordsSystem.WebService.Core.Models.Db.MedicalPractioner
         }
 
         /// <summary>
-        /// Initializes a new instance of <see cref="MedicalPractionerAccount"/>.
+        /// Initializes a new instance of <see cref="PhysicianAccount"/>.
         /// </summary>
-        public MedicalPractionerAccount()
+        public PhysicianAccount()
         {
             this.ID = Guid.Empty;
             this.CPF = String.Empty;
@@ -145,9 +148,9 @@ namespace MedicalRecordsSystem.WebService.Core.Models.Db.MedicalPractioner
         #endregion
 
         /// <summary>
-        /// Provides an empty <see cref="IMedicalPractionerAccount"/> instance.
+        /// Provides an empty <see cref="IPhysicianAccount"/> instance.
         /// </summary>
-        /// <returns>The default empty <see cref="IMedicalPractionerAccount"/> implementation.</returns>
-        public static IMedicalPractionerAccount Empty() => new MedicalPractionerAccount();
+        /// <returns>The default empty <see cref="IPhysicianAccount"/> implementation.</returns>
+        public static IPhysicianAccount Empty() => new PhysicianAccount();
     }
 }

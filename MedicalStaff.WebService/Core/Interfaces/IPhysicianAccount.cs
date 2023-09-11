@@ -1,13 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
-using MedicalRecordsSystem.WebService.Core.Helpers.Properties;
+using MedicalStaff.WebService.Core.Helpers.Properties;
 
-namespace MedicalRecordsSystem.WebService.Core.Interfaces
+namespace MedicalStaff.WebService.Core.Interfaces
 {
     /// <summary>
     /// Represents a Medical Practioner's account.
     /// </summary>
-    public interface IMedicalPractionerAccount : ISystemUser
+    public interface IPhysicianAccount : ISystemUser
     {
         /// <summary>
         /// Represents the Brazilian national-wide Medical Practioner Professional Regional Identification Number.

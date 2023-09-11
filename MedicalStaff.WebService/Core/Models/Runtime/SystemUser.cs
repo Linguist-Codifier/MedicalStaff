@@ -1,11 +1,11 @@
 ﻿using System;
-using MedicalRecordsSystem.WebService.Core.Interfaces;
-using MedicalRecordsSystem.WebService.Core.Helpers.Analysers;
-using MedicalRecordsSystem.WebService.Core.Helpers.Properties;
-using MedicalRecordsSystem.WebService.Core.Models.Db.Patient;
-using MedicalRecordsSystem.WebService.Core.Models.Db.MedicalPractioner;
+using MedicalStaff.WebService.Core.Interfaces;
+using MedicalStaff.WebService.Core.Helpers.Analysers;
+using MedicalStaff.WebService.Core.Helpers.Properties;
+using MedicalStaff.WebService.Core.Models.Db.Patient;
+using MedicalStaff.WebService.Core.Models.Db.Physician;
 
-namespace MedicalRecordsSystem.WebService.Core.Models.Runtime
+namespace MedicalStaff.WebService.Core.Models.Runtime
 {
     /// <summary>
     /// 
@@ -56,16 +56,16 @@ namespace MedicalRecordsSystem.WebService.Core.Models.Runtime
         /// <exception cref="NotImplementedException"></exception>
         public static TCast Cast<TCast>(ISystemUser systemUser) where TCast : ISystemUser
         {
-            if (typeof(TCast).Implements<IMedicalPractionerAccount>())
+            if (typeof(TCast).Implements<IPhysicianAccount>())
             {
-                return (TCast)(IMedicalPractionerAccount)new MedicalPractionerAccount
+                return (TCast)(IPhysicianAccount)new PhysicianAccount
                 (
-                    ((IMedicalPractionerAccount)systemUser).ID,
-                    ((IMedicalPractionerAccount)systemUser).CRM,
-                    ((IMedicalPractionerAccount)systemUser).CPF.RemoveSpecifically(new[] { '.', '-' }),
-                    ((IMedicalPractionerAccount)systemUser).Name,
-                    ((IMedicalPractionerAccount)systemUser).Email,
-                    ((IMedicalPractionerAccount)systemUser).Password
+                    ((IPhysicianAccount)systemUser).ID,
+                    ((IPhysicianAccount)systemUser).CRM,
+                    ((IPhysicianAccount)systemUser).CPF.RemoveSpecifically(new[] { '.', '-' }),
+                    ((IPhysicianAccount)systemUser).Name,
+                    ((IPhysicianAccount)systemUser).Email,
+                    ((IPhysicianAccount)systemUser).Password
                 );
             }
 

@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using MedicalRecordsSystem.WebService.Core.Helpers.Mappers;
-using MedicalRecordsSystem.WebService.Core.Models.Db.Patient;
-using MedicalRecordsSystem.WebService.Core.Models.Transfer.Patient.SignUp;
+using MedicalStaff.WebService.Core.Helpers.Mappers;
+using MedicalStaff.WebService.Core.Models.Db.Patient;
+using MedicalStaff.WebService.Core.Models.Transfer.Patient.SignUp;
 
-namespace MedicalRecordsSystem.WebService.Core.Interfaces
+namespace MedicalStaff.WebService.Core.Interfaces
 {
     /// <summary>
     /// Stabilishes how a <see cref="IPatientAccountController"/> should handle its concerns.
@@ -31,7 +31,7 @@ namespace MedicalRecordsSystem.WebService.Core.Interfaces
         /// </summary>
         /// <param name="doctorModel"></param>
         /// <returns></returns>
-        Task<ActionResult<PatientAccount>> CreatePatientAsync([FromBody] PatientSignUp doctorModel);
+        Task<ActionResult<PatientAccount>> CreatePatientAsync([FromBody] PatientSignUpDTO doctorModel);
 
         /// <summary>
         /// 
@@ -39,7 +39,7 @@ namespace MedicalRecordsSystem.WebService.Core.Interfaces
         /// <param name="cpf"></param>
         /// <param name="targetDoctor"></param>
         /// <returns></returns>
-        Task<ActionResult<PatientAccount>> UpdatePatientAsync(String cpf, [FromBody] PatientSignUp targetDoctor);
+        Task<ActionResult<PatientAccount>> UpdatePatientAsync(String cpf, [FromBody] PatientSignUpDTO targetDoctor);
 
         /// <summary>
         /// 

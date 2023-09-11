@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.IdentityModel.Tokens;
-using MedicalRecordsSystem.WebService.Core.Interfaces;
-using MedicalRecordsSystem.WebService.Core.Helpers.Mappers;
-using MedicalRecordsSystem.WebService.Core.Helpers.Properties;
+using MedicalStaff.WebService.Core.Interfaces;
+using MedicalStaff.WebService.Core.Helpers.Mappers;
+using MedicalStaff.WebService.Core.Helpers.Properties;
 
-namespace MedicalRecordsSystem.WebService.Core.Helpers.Analysers
+namespace MedicalStaff.WebService.Core.Helpers.Analysers
 {
     /// <summary>
     /// Provides the <see cref="MedicalAccountCredential"/> instances with common validation helpers methods.
@@ -29,13 +29,13 @@ namespace MedicalRecordsSystem.WebService.Core.Helpers.Analysers
         /// <param name="_">This account implementation.</param>
         /// <returns><see langword="true"></see> whether this current account implementation has its properties fully assigned, considering on its implementation type; otherwise <see langword="false"></see>.</returns>
         /// <exception cref="NotImplementedException"></exception>
-        public static Boolean IsValidAccount<TCredential>(this TCredential _) where TCredential : ISystemUser
+        public static Boolean IsValid<TCredential>(this TCredential _) where TCredential : ISystemUser
         {
-            if (typeof(TCredential).Implements<IMedicalPractionerAccount>())
+            if (typeof(TCredential).Implements<IPhysicianAccount>())
             {
-                return !((IMedicalPractionerAccount)_).ID.Default() && ((IMedicalPractionerAccount)_).CRM is not null && ((IMedicalPractionerAccount)_).CPF is not null
-                    && ((IMedicalPractionerAccount)_).Name is not null && ((IMedicalPractionerAccount)_).Email is not null
-                    && ((IMedicalPractionerAccount)_).Password is not null && ((IMedicalPractionerAccount)_).Role is Role.MedicalPractioner;
+                return !((IPhysicianAccount)_).ID.Default() && ((IPhysicianAccount)_).CRM is not null && ((IPhysicianAccount)_).CPF is not null
+                    && ((IPhysicianAccount)_).Name is not null && ((IPhysicianAccount)_).Email is not null
+                    && ((IPhysicianAccount)_).Password is not null && ((IPhysicianAccount)_).Role is Role.MedicalPractioner;
             }
 
             if (typeof(TCredential).Implements<IPatientAccount>())

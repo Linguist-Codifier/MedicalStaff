@@ -1,26 +1,26 @@
-using MedicalRecordsSystem.WebService.Core.Helpers.Analysers;
-using MedicalRecordsSystem.WebService.Core.Helpers.Properties;
-using MedicalRecordsSystem.WebService.Core.Interfaces;
-using MedicalRecordsSystem.WebService.Core.Models.Db.MedicalPractioner;
+using MedicalStaff.WebService.Core.Interfaces;
+using MedicalStaff.WebService.Core.Helpers.Analysers;
+using MedicalStaff.WebService.Core.Helpers.Properties;
+using MedicalStaff.WebService.Core.Models.Db.Physician;
 
-namespace MedicalRecordsSystem.WebService.Tests
+namespace MedicalStaff.WebService.Tests
 {
     public class Analysers
     {
         [Fact]
         public static void RegularExpressionsForCPFFormats()
         {
-            Assert.True(RegularExpressionsUtility.Matches(ExpressionType.CPF, "129.177.457-70"));
+            Assert.True(RegularExpressionsUtility.Matches(ExpressionType.FormattedCPF, "129.177.457-70"));
 
-            Assert.False(RegularExpressionsUtility.Matches(ExpressionType.CPF, "129-177.457.27"));
+            Assert.False(RegularExpressionsUtility.Matches(ExpressionType.FormattedCPF, "129-177.457.27"));
 
-            Assert.False(RegularExpressionsUtility.Matches(ExpressionType.CPF, "129.177-4572712"));
+            Assert.False(RegularExpressionsUtility.Matches(ExpressionType.FormattedCPF, "129.177-4572712"));
         }
 
         [Fact]
         public static void Implements()
         {
-            Assert.True(typeof(MedicalPractionerAccount).Implements<IMedicalPractionerAccount>());
+            Assert.True(typeof(PhysicianAccount).Implements<IPhysicianAccount>());
         }
 
         [Fact]

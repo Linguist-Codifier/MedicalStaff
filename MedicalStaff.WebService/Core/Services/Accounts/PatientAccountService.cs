@@ -1,26 +1,25 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using MedicalRecordsSystem.WebService.Core.Data;
-using MedicalRecordsSystem.WebService.Core.Interfaces;
-using MedicalRecordsSystem.WebService.Core.Helpers.Mappers;
-using MedicalRecordsSystem.WebService.Core.Helpers.Analysers;
-using MedicalRecordsSystem.WebService.Core.Models.Runtime;
-using MedicalRecordsSystem.WebService.Core.Models.Db.Patient;
-using MedicalRecordsSystem.WebService.Core.Infrastructure.Accounts;
+using MedicalStaff.WebService.Core.Data;
+using MedicalStaff.WebService.Core.Interfaces;
+using MedicalStaff.WebService.Core.Models.Runtime;
+using MedicalStaff.WebService.Core.Helpers.Mappers;
+using MedicalStaff.WebService.Core.Helpers.Analysers;
+using MedicalStaff.WebService.Core.Models.Db.Patient;
 
-namespace MedicalRecordsSystem.WebService.Core.Services.Patient
+namespace MedicalStaff.WebService.Core.Services.Accounts
 {
     /// <summary>
     /// Provides access to the common Patient's accounts services.
     /// </summary>
-    public class PatientAccountsServices : Accounts
+    public partial class PatientAccountService : Infrastructure.Accounts.AccountsRepository
     {
         /// <summary>
-        /// The <see cref="PatientAccountsServices"/> contructor.
+        /// Initializes a new instance of <see cref="PatientAccountService"/> by passing in its data-layer access. <see cref="SystemDbContext"/> is the bridge between this service and its corresponding database IO-Concerns mechanisms.
         /// </summary>
-        /// <param name="applicationDbContext">The system's data-base context through where the <see cref="PatientAccountsServices"/> access and perform data-base centered critical operations.</param>
-        protected PatientAccountsServices(SystemDbContext applicationDbContext) : base(applicationDbContext) { }
+        /// <param name="applicationDbContext">The system's database context through where the <see cref="PatientAccountService"/> access and perform database-centered critical IO operations.</param>
+        protected PatientAccountService(SystemDbContext applicationDbContext) : base(applicationDbContext) { }
 
         /// <summary>
         /// Retrieves the patient's account regarding the specified account type-model. The specified type-model must implements <see cref="IPatientAccount"/>.
@@ -52,7 +51,7 @@ namespace MedicalRecordsSystem.WebService.Core.Services.Patient
         /// <returns>The provided patient account updated.</returns>
         protected new async Task<TAccountImplementation> UpdateAccountAsync<TAccountImplementation>(TAccountImplementation patientAccount) where TAccountImplementation : IPatientAccount
         {
-            return (TAccountImplementation)(IPatientAccount)await base.UpdateAccountAsync<PatientAccount>(SystemUser.Cast<PatientAccount>(patientAccount));
+            return (TAccountImplementation)(IPatientAccount)await base.UpdateAccountAsync(SystemUser.Cast<PatientAccount>(patientAccount));
         }
 
         /// <summary>
@@ -74,7 +73,7 @@ namespace MedicalRecordsSystem.WebService.Core.Services.Patient
         /// <returns>A patient account model instance in where <typeparamref name="TImplementation"/> implements <see cref="IPatientAccountCredential"/>.</returns>
         protected async Task<TImplementation> RequestAccountCredentialAsync<TImplementation>(String patientCPF) where TImplementation : IPatientAccountCredential
         {
-            IPatientAccount Patient = await this.RetrieveAccountAsync<PatientAccount>(patientCPF);
+            IPatientAccount Patient = await RetrieveAccountAsync<PatientAccount>(patientCPF);
 
             IPatientAccountCredential PatientAccountCredentials = new PatientAccountCrendential(Patient.Password);
 
@@ -92,7 +91,7 @@ namespace MedicalRecordsSystem.WebService.Core.Services.Patient
         /// <returns>The created patient account.</returns>
         protected async Task<TAccountImplementation> CreateAccount<TAccountImplementation>(TAccountImplementation patientAccount) where TAccountImplementation : IPatientAccount
         {
-            IPatientAccount InsertedPatient = await this.Push<PatientAccount>(SystemUser.Cast<PatientAccount>(patientAccount));
+            IPatientAccount InsertedPatient = await Push(SystemUser.Cast<PatientAccount>(patientAccount));
 
             return InsertedPatient.CPF is not null ? (TAccountImplementation)InsertedPatient : (TAccountImplementation)PatientAccount.Empty();
         }

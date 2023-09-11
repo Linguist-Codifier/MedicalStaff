@@ -1,4 +1,4 @@
-﻿namespace MedicalRecordsSystem.WebService.Core.Interfaces
+﻿namespace MedicalStaff.WebService.Core.Interfaces
 {
     /// <summary>
     /// Provides the common interface for any patient credentials account.

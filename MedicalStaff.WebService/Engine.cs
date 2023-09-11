@@ -2,12 +2,11 @@ using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using MedicalRecordsSystem.WebService.Core.Data;
+using MedicalStaff.WebService.Core.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MedicalRecordsSystem.WebService.Core.Infrastructure.MedicalRecords;
 
-namespace MedicalRecordsSystem.WebService
+namespace MedicalStaff.WebService
 {
     /// <summary>
     /// Application entry gate.
@@ -29,7 +28,6 @@ namespace MedicalRecordsSystem.WebService
             });
 
             Builder.Services.AddControllers();
-            Builder.Services.AddScoped<MedicalRecordsDbContext>();
             Builder.Services.AddEndpointsApiExplorer();
             Builder.Services.AddSwaggerGen();
             Builder.Services.AddCors();

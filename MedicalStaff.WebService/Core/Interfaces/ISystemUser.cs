@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace MedicalRecordsSystem.WebService.Core.Interfaces
+namespace MedicalStaff.WebService.Core.Interfaces
 {
     /// <summary>
     /// Stabilishes the attributes any system's user must have in common.

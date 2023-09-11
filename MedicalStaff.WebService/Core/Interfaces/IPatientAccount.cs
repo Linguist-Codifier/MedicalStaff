@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using MedicalRecordsSystem.WebService.Core.Helpers.Properties;
+using MedicalStaff.WebService.Core.Helpers.Properties;
 
-namespace MedicalRecordsSystem.WebService.Core.Interfaces
+namespace MedicalStaff.WebService.Core.Interfaces
 {
     /// <summary>
     /// Represents a Patient account.

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
-using MedicalRecordsSystem.WebService.Core.Interfaces;
+using MedicalStaff.WebService.Core.Interfaces;
 using System.ComponentModel.DataAnnotations;
-using MedicalRecordsSystem.WebService.Core.Helpers.Properties;
-using MedicalRecordsSystem.WebService.Core.Models.Transfer.Patient.SignUp;
+using MedicalStaff.WebService.Core.Helpers.Properties;
+using MedicalStaff.WebService.Core.Models.Transfer.Patient.SignUp;
+using MedicalStaff.WebService.Core.Helpers.Attributes;
 
-namespace MedicalRecordsSystem.WebService.Core.Models.Db.Patient
+namespace MedicalStaff.WebService.Core.Models.Db.Patient
 {
     /// <summary>
     /// Represents an <see cref="IPatientAccount"/> type of account.
@@ -22,7 +23,8 @@ namespace MedicalRecordsSystem.WebService.Core.Models.Db.Patient
         /// <summary>
         /// The unique(CPF - Brazilian national-wide identification number) Token for identifying this patient.
         /// </summary>
-        [Required]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "The CPF is a requiered field.")]
+        [CPF]
         [StringLength(maximumLength: 14, MinimumLength = 14, ErrorMessage = "The CPF min and max length must be both 14.")]
         [Description("The unique(CPF - Brazilian national-wide identification number) Token for identifying this MedicalPractioner.")]
         public String CPF { get; set; }
@@ -106,8 +108,8 @@ namespace MedicalRecordsSystem.WebService.Core.Models.Db.Patient
         /// <summary>
         /// <see cref="PatientAccount"/> Constructor.
         /// </summary>
-        /// <param name="patient">A <see cref="PatientSignUp"/> data-tranfer-model.</param>
-        public PatientAccount(PatientSignUp patient)
+        /// <param name="patient">A <see cref="PatientSignUpDTO"/> data-tranfer-model.</param>
+        public PatientAccount(PatientSignUpDTO patient)
         {
             this.ID = Guid.NewGuid();
             this.CPF = patient.CPF;
