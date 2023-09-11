@@ -58,4 +58,6 @@ There are two main modes of execution, one is in Debugging mode and the other is
 
 # Executing
 
-<h5><img src="Docs/Images/APIOnExecuting.PNG" /></h5>
+<h6><img src="Docs/Images/APIOnExecuting.PNG" /></h6>
+
+[Download sample video here](./Docs/Videos/Preview.wmv)
