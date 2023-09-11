@@ -21,7 +21,7 @@ namespace MedicalStaff.WebService.Controllers
     /// </summary>
     [ApiController]
     [Route("api/patient-records")]
-    public class PatientRecordsController : PatientRecordsService
+    public sealed partial class PatientRecordsController : PatientRecordsService
     {
         private readonly ILogger<PatientRecordsController> _logger;
 
