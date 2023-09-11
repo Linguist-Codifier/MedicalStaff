@@ -22,11 +22,20 @@ Both Forms-based and web-based applications can be designed and developed using 
 
 ### Executing the API
 
-- #### Donwloading the Solution
+- #### Donwload the Solution
 ```bash
   #Clone this repository or download it as ZIP
   $ git clone https://github.com/Linguist-Codifier/MedicalStaff.git
 ```
-- #### Openning the Solution
+- #### Open the Solution
 
-<h6><img src="./Docs/Images/Solution.PNG"/></h6> - Make sure you open it up with Visual Studio 2022 in case there are any other versions already installed.
+<h6><img src="./Docs/Images/SolutionFile.PNG"/></h6> 
+
+##### Make sure you open it up with Visual Studio 2022 in case there are any other versions already installed.
+
+- After openning the Solution, Visual Studio will check any missing dependency and will try to download them from NuGet.
+
+- After everything is set up, compile the solution as follows:
+
+<h6><img src=""/></h6>
+
