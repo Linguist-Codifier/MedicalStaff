@@ -24,7 +24,7 @@ Both Forms-based and web-based applications can be designed and developed using 
 
 #### Download & Install the Microsoft SQL Server Management Studio
 
-- [Download SQL Server Management Studio](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16#download-ssms) and follow [this Guide](https://www.nobledesktop.com/how-to-install-sql-server-management-studio)
+- [Download SQL Server Management Studio](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16#download-ssms) and follow [this Guide.](https://www.nobledesktop.com/how-to-install-sql-server-management-studio)
 
 ### Executing the API
 
