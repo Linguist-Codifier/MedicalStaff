@@ -62,7 +62,7 @@ Both Forms-based and web-based applications can be designed and developed using 
 
 - Then finally, write update-databse on the same console.
 
-<h6><<img src="./Docs/Images/UpdateDatabase.PNG" /></h6>
+<h6><img src="./Docs/Images/UpdateDatabase.PNG" /></h6>
 
 - After everything is set up, build the solution by pressing CTRL + SHIFT + B and run it as follows:
 
