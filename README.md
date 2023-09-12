@@ -56,6 +56,10 @@ Both Forms-based and web-based applications can be designed and developed using 
 
 - Then, open up the NuGet Package Manager and write 'add-migration StartUp'. Make sure your Connection String is already set up as previously mentioned.
 
+- Then finally, write update-databse on the same console.
+
+<h6><<img src="./Docs/Images/UpdateDatabase.png" /></h6>
+
 <h6><img src="./Docs/Images/Migrations.png" /></h6>
 
 <h6><img src="./Docs/Images/AddMigration.png" /></h6>
