@@ -1,4 +1,4 @@
-# Pretty and Simple ASP.NET Core REST API with Entity Framework Core
+# Pretty and Simple ASP.NET Core REST API with Entity Framework Core - By [Jonathan P. Marinho](https://www.linkedin.com/in/jonathan-pmarinho/)
 
 ## Context
 
