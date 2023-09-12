@@ -50,6 +50,10 @@ Both Forms-based and web-based applications can be designed and developed using 
 
 - After openning the Solution, Visual Studio will check any missing dependency and will try to download them from NuGet.
 
+- Then, open up the NuGet Package Manager and write 'add-migration StartUp'. Make sure your Connection String is already set up as previously mentioned.
+
+<h6><img src="./Docs/Images/Migrations.PNG" /></h6>
+
 - After everything is set up, compile the solution by pressing CTRL + SHIFT + B and run it as follows:
 
 <h6><img src="./Docs/Images/ExecutingSolution.PNG"/></h6>
