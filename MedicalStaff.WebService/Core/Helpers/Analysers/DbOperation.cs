@@ -68,12 +68,12 @@ namespace MedicalStaff.WebService.Core.Helpers.Analysers
         /// Determines whether there's any operation ongoing. An operation ongoing is regarded as such when there's a result and a status addressed to this current <see cref="DbOperation{TEntity}"/> instance.
         /// </summary>
         /// <returns></returns>
-        public Boolean HasExectingOperation() => this.Result is not null && this.Status is not null;
+        public Boolean HasExecutingOperation() => this.Result is not null && this.Status is not null;
 
         /// <inheritdoc/>
         public TEntity EnsureInstance()
         {
-            if (this.HasExectingOperation())
+            if (this.HasExecutingOperation())
                 return this.SecureInstance;
 
             throw new NullReferenceException("No entity is addressed to the result.");
