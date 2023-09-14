@@ -1,4 +1,4 @@
-# Pretty and Simple ASP.NET Core REST API with Entity Framework Core
+# Pretty and Simple ASP.NET Core REST API with Entity Framework Core - By [Jonathan P. Marinho](https://www.linkedin.com/in/jonathan-pmarinho/)
 
 ## Context
 
@@ -24,7 +24,7 @@ Both Forms-based and web-based applications can be designed and developed using 
 
 #### Download & Install the Microsoft SQL Server Management Studio
 
-- [Download SQL Server Management Studio](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16#download-ssms) and follow [this Guide](https://www.nobledesktop.com/how-to-install-sql-server-management-studio)
+- [Download SQL Server Management Studio](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16#download-ssms) and follow [this Guide.](https://www.nobledesktop.com/how-to-install-sql-server-management-studio)
 
 ### Executing the API
 
@@ -60,6 +60,10 @@ Both Forms-based and web-based applications can be designed and developed using 
 
 <h6><img src="./Docs/Images/AddMigration.png" /></h6>
 
+- Then finally write 'update-database' on the same console.
+
+<h6><img src="./Docs/Images/UpdateDatabase.PNG" /></h6>
+
 - After everything is set up, build the solution by pressing CTRL + SHIFT + B and run it as follows:
 
 <h6><img src="./Docs/Images/ExecutingSolution.PNG"/></h6>
@@ -70,4 +74,6 @@ There are two main modes of execution, one is in Debugging mode and the other is
 
 <h6><img src="Docs/Videos/Demonstration.gif" /></h6>
 
-[Download demonstration](https://github.com/Linguist-Codifier/MedicalStaff/archive/refs/heads/master.zip)
+#
+
+[Download](https://github.com/Linguist-Codifier/MedicalStaff/archive/refs/heads/master.zip](https://github.com/Linguist-Codifier/MedicalStaff/raw/master/Docs/Videos/Preview.wmv)https://github.com/Linguist-Codifier/MedicalStaff/raw/master/Docs/Videos/Preview.wmv) a video demonstration.
