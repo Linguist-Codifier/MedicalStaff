@@ -36,7 +36,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Accounts
         /// <param name="userCPF"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected async Task<TUser> RetrieveAccountAsync<TUser>(String userCPF) where TUser : ISystemUser
+        protected virtual async Task<TUser> RetrieveAccountAsync<TUser>(String userCPF) where TUser : ISystemUser
         {
             if (typeof(TUser).Implements<IPhysicianAccount>())
             {
@@ -75,7 +75,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Accounts
         /// <param name="user"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected async Task<TUser> Push<TUser>(TUser user) where TUser : ISystemUser
+        protected virtual async Task<TUser> Push<TUser>(TUser user) where TUser : ISystemUser
         {
             if (typeof(TUser).Implements<IPhysicianAccount>())
             {
@@ -111,7 +111,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Accounts
         /// </summary>
         /// <typeparam name="TUser">The type of account to seek in where <typeparamref name="TUser"/> implements <see cref="ISystemUser"/> data model.</typeparam>
         /// <returns>An <see cref="IEnumerable{T}"/> of <typeparamref name="TUser"/>.</returns>
-        protected async Task<IEnumerable<TUser>> QueryAccountsAsync<TUser>() where TUser : ISystemUser
+        protected virtual async Task<IEnumerable<TUser>> QueryAccountsAsync<TUser>() where TUser : ISystemUser
         {
             if (typeof(TUser).Implements<IPhysicianAccount>())
                 return (IEnumerable<TUser>)await this.SysContext.PhysicianAccounts.ToListAsync();
@@ -130,7 +130,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Accounts
         /// <param name="user"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected async Task<TUser> UpdateAccountAsync<TUser>(TUser user) where TUser : ISystemUser
+        protected virtual async Task<TUser> UpdateAccountAsync<TUser>(TUser user) where TUser : ISystemUser
         {
             if (typeof(TUser).Implements<IPhysicianAccount>())
             {
@@ -185,7 +185,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Accounts
         /// <param name="userCPF"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected async Task<Boolean> DeleteAccount<TUser>(String userCPF) where TUser : ISystemUser
+        protected virtual async Task<Boolean> DeleteAccount<TUser>(String userCPF) where TUser : ISystemUser
         {
             if (typeof(TUser).Implements<IPhysicianAccount>())
             {

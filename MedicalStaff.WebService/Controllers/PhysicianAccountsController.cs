@@ -2,7 +2,6 @@
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using MedicalStaff.WebService.Core.Data;
 using System.ComponentModel.DataAnnotations;
@@ -21,7 +20,7 @@ namespace MedicalStaff.WebService.Controllers
     /// </summary>
     [ApiController]
     [Route("api/physician")]
-    public sealed partial class PhysicianAccountsController : PhysicianAccountService, IPhysicianAccountController
+    public sealed partial class PhysicianAccountsController : PhysicianAccountService, IPhysicianAccountEndPoints
     {
         private readonly ILogger<PhysicianAccountsController> _logger;
 
@@ -30,21 +29,14 @@ namespace MedicalStaff.WebService.Controllers
             : base(applicationDbContext) => this._logger = logger;
         #pragma warning restore CS1591
 
-        /// <summary>
-        /// Retrieves the medical practioner accounts.
-        /// </summary>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="PhysicianAccount"/>.</returns>
+        /// <inheritdoc/>
         [HttpGet("accounts")]
-        public async Task<ActionResult<IEnumerable<PhysicianAccount>>> GetMedicalPractionersAccountsAsync()
+        public async Task<IActionResult> GetPhysicianAccountsAsync()
             => this.Ok(await this.QueryAccountsAsync<PhysicianAccount>());
 
-        /// <summary>
-        /// Retrieves any medical practioner account by the CPF.
-        /// </summary>
-        /// <param name="CPF">The associated account's CPF.</param>
-        /// <returns>The requested <see cref="PhysicianAccount"/>.</returns>
+        /// <inheritdoc/>
         [HttpGet("credential/{CPF}")]
-        public async Task<ActionResult<MedicalAccountCredential>> GetMedicalPractionerAccountAsync([Required][CPF] String CPF)
+        public async Task<IActionResult> GetPhysicianAccountAsync([Required][CPF] String CPF)
         {
             IMedicalAccountCredential PhysicianCredentials = await this.RequestAccountCredentialAsync<MedicalAccountCredential>(CPF);
 
@@ -54,21 +46,17 @@ namespace MedicalStaff.WebService.Controllers
             return this.NotFound();
         }
 
-        /// <summary>
-        /// Creates a medical practioner account.
-        /// </summary>
-        /// <param name="signUp">The medical practioner sign up data.</param>
-        /// <returns>The created <see cref="PhysicianAccount"/>.</returns>
+        /// <inheritdoc/>
         [HttpPost("account")]
-        public async Task<ActionResult<PhysicianAccount>> CreateMedicalPractionerAccountAsync([Required][FromBody] PhysicianAccountDTO signUp)
+        public async Task<IActionResult> CreatePhysicianAccountAsync([Required][FromBody] PhysicianAccountDTO account)
         {
             try
             {
-                IMedicalAccountCredential PhysicianCredentials = await this.RequestAccountCredentialAsync<MedicalAccountCredential>(signUp.CPF);
+                IMedicalAccountCredential PhysicianCredentials = await this.RequestAccountCredentialAsync<MedicalAccountCredential>(account.CPF);
 
                 if (PhysicianCredentials.IsNullOrEmpty())
                 {
-                    IPhysicianAccount CreatedPhysician = await this.CreateAccount<PhysicianAccount>(new PhysicianAccount(signUp));
+                    IPhysicianAccount CreatedPhysician = await this.CreateAccount<PhysicianAccount>(new PhysicianAccount(account));
 
                     return this.StatusCode(HttpStatusCode.Created.ToInt32(), CreatedPhysician);
                 }
@@ -81,24 +69,19 @@ namespace MedicalStaff.WebService.Controllers
             }
         }
 
-        /// <summary>
-        /// Updates a medical practioner account.
-        /// </summary>
-        /// <param name="CPF">The medical practioner CPF(The Brazilian national-wide unique identification number).</param>
-        /// <param name="targetMedicalPractioner">The new and/or updated medical practioner sign up data.</param>
-        /// <returns>The updated medical practioner sign up data.</returns>
+        /// <inheritdoc/>
         [HttpPut("account/{CPF}")]
-        public async Task<ActionResult<PhysicianAccount>> UpdateMedicalPractionerAccountAsync([Required][CPF]  String CPF, [FromBody][Required] PhysicianAccountDTO targetMedicalPractioner)
+        public async Task<IActionResult> UpdatePhysicianAccountAsync([Required][CPF]  String CPF, [FromBody][Required] PhysicianAccountDTO target)
         {
             PhysicianAccount CurrentPhysician = await this.RetrieveAccountAsync<PhysicianAccount>(CPF);
 
             if (CurrentPhysician.IsValid())
             {
-                CurrentPhysician.CPF = targetMedicalPractioner.CPF;
-                CurrentPhysician.CRM = targetMedicalPractioner.CRM;
-                CurrentPhysician.Name = targetMedicalPractioner.Name;
-                CurrentPhysician.Password = targetMedicalPractioner.Password;
-                CurrentPhysician.Email = targetMedicalPractioner.Email;
+                CurrentPhysician.CPF = target.CPF;
+                CurrentPhysician.CRM = target.CRM;
+                CurrentPhysician.Name = target.Name;
+                CurrentPhysician.Password = target.Password;
+                CurrentPhysician.Email = target.Email;
 
                 PhysicianAccount UpdatedCurrentPhysician = await this.UpdateAccountAsync<PhysicianAccount>(new PhysicianAccount(CurrentPhysician));
 
@@ -110,13 +93,9 @@ namespace MedicalStaff.WebService.Controllers
             return this.BadRequest();
         }
 
-        /// <summary>
-        /// Deletes a medical practioenr accounnt.
-        /// </summary>
-        /// <param name="CPF">The medical practioner CPF (The Brazilian national-wide unique identification number).</param>
-        /// <returns>The deleted medical practioner sign up data.</returns>
+        /// <inheritdoc/>
         [HttpDelete("account/{CPF}")]
-        public async Task<ActionResult<PhysicianAccount>> DeleteMedicalPractionerAsync([Required][CPF] String CPF)
+        public async Task<IActionResult> DeletePhysicianAsync([Required][CPF] String CPF)
         {
             PhysicianAccount CurrentPhysician = await this.RetrieveAccountAsync<PhysicianAccount>(CPF);
 

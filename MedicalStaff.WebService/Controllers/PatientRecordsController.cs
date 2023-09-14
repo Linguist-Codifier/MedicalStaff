@@ -17,11 +17,11 @@ using MedicalStaff.WebService.Core.Models.Transfer.PatientRecordDTO;
 namespace MedicalStaff.WebService.Controllers
 {
     /// <summary>
-    /// The patient records controller.
+    /// This controller is responsible for providing endpoints for accessing and manipulating any <see cref="PatientRecords"/> account. This class cannot be inherited.
     /// </summary>
     [ApiController]
     [Route("api/patient-records")]
-    public sealed partial class PatientRecordsController : PatientRecordsService
+    public sealed partial class PatientRecordsController : PatientRecordsService, IPatientRecordsEndPoints
     {
         private readonly ILogger<PatientRecordsController> _logger;
 
@@ -30,13 +30,9 @@ namespace MedicalStaff.WebService.Controllers
             : base(applicationDbContext) => this._logger = logger;
         #pragma warning restore CS1591
 
-        /// <summary>
-        /// Retrieves all records for the specified account by CPF.
-        /// </summary>
-        /// <param name="CPF">The account's CPF.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="PatientRecords"/>.</returns>
+        /// <inheritdoc/>
         [HttpGet("{CPF}")]
-        public async Task<ActionResult<IEnumerable<PatientRecords>>> GetPatientRecords([Required] String CPF)
+        public async Task<IActionResult> GetPatientRecords([Required] String CPF)
         {
             try
             {
@@ -50,13 +46,9 @@ namespace MedicalStaff.WebService.Controllers
             }
         }
 
-        /// <summary>
-        /// Creates a new patient record.
-        /// </summary>
-        /// <param name="record">The record to be added.</param>
-        /// <returns>The created record.</returns>
+        /// <inheritdoc/>
         [HttpPost]
-        public async Task<ActionResult<PatientRecords>> CreatePatientRecord([Required][FromBody] PatientRecordsDTO record)
+        public async Task<IActionResult> CreatePatientRecord([Required][FromBody] PatientRecordsDTO record)
         {
             IDbOperation<PatientRecords> OnCreating = await this.CreateRecord<PatientRecords>(new PatientRecords(record).NormalizeSpecialProperties());
 
@@ -72,14 +64,9 @@ namespace MedicalStaff.WebService.Controllers
             throw new NotImplementedException("Unavailable operation.");
         }
 
-        /// <summary>
-        /// Updates an existing patient record.
-        /// </summary>
-        /// <param name="ID">The record ID.</param>
-        /// <param name="record">The updated data of the record.</param>
-        /// <returns>The updated record.</returns>
+        /// <inheritdoc/>
         [HttpPut("{ID}")]
-        public async Task<ActionResult<PatientRecords>> UpdatePatientRecord([Required]Guid ID, [FromBody] PatientRecordsDTO record)
+        public async Task<IActionResult> UpdatePatientRecord([Required]Guid ID, [FromBody] PatientRecordsDTO record)
         {
             IDbOperation<PatientRecords> Query = await this.GetRecord<PatientRecords>(ID);
 
@@ -104,13 +91,9 @@ namespace MedicalStaff.WebService.Controllers
             return this.BadRequest();
         }
 
-        /// <summary>
-        /// Deletes an existing patient record.
-        /// </summary>
-        /// <param name="ID">The record ID.</param>
-        /// <returns><see langword="true"></see> whether the existing record was deleted; otherwise, <see langword="false"></see>.</returns>
+        /// <inheritdoc/>
         [HttpDelete("{ID}")]
-        public async Task<ActionResult<Boolean>> DeletePatientRecord([Required] Guid ID)
+        public async Task<IActionResult> DeletePatientRecord([Required] Guid ID)
         {
             IDbOperation<PatientRecords> OnUpdating = await this.DeleteRecord<PatientRecords>(ID);
 

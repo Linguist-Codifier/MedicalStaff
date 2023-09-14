@@ -73,7 +73,7 @@ namespace MedicalStaff.WebService.Core.Services.Accounts
         /// <returns>A patient account model instance in where <typeparamref name="TImplementation"/> implements <see cref="IPatientAccountCredential"/>.</returns>
         protected async Task<TImplementation> RequestAccountCredentialAsync<TImplementation>(String patientCPF) where TImplementation : IPatientAccountCredential
         {
-            IPatientAccount Patient = await RetrieveAccountAsync<PatientAccount>(patientCPF);
+            IPatientAccount Patient = await this.RetrieveAccountAsync<PatientAccount>(patientCPF);
 
             IPatientAccountCredential PatientAccountCredentials = new PatientAccountCrendential(Patient.Password);
 
@@ -91,7 +91,7 @@ namespace MedicalStaff.WebService.Core.Services.Accounts
         /// <returns>The created patient account.</returns>
         protected async Task<TAccountImplementation> CreateAccount<TAccountImplementation>(TAccountImplementation patientAccount) where TAccountImplementation : IPatientAccount
         {
-            IPatientAccount InsertedPatient = await Push(SystemUser.Cast<PatientAccount>(patientAccount));
+            IPatientAccount InsertedPatient = await this.Push(SystemUser.Cast<PatientAccount>(patientAccount));
 
             return InsertedPatient.CPF is not null ? (TAccountImplementation)InsertedPatient : (TAccountImplementation)PatientAccount.Empty();
         }
