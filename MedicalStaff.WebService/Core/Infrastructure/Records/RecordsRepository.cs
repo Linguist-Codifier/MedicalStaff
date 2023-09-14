@@ -37,7 +37,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Records
         /// <param name="ID">The record ID.</param>
         /// <returns>The retrieved <typeparamref name="TRecord"/> record.</returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected async Task<IDbOperation<TRecord>> GetRecord<TRecord>(Guid ID) where TRecord : IRecords
+        protected virtual async Task<IDbOperation<TRecord>> GetRecord<TRecord>(Guid ID) where TRecord : IRecords
         {
             if (typeof(TRecord).Implements<IPatientRecord>())
             {
@@ -64,7 +64,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Records
         /// </summary>
         /// <param name="targetCPF">The target record's CPF.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <typeparamref name="TRecord"/>.</returns>
-        protected async Task<IEnumerable<TRecord>> GetRecords<TRecord>(String targetCPF) where TRecord : IRecords
+        protected virtual async Task<IEnumerable<TRecord>> GetRecords<TRecord>(String targetCPF) where TRecord : IRecords
         {
             if (typeof(TRecord).Implements<IPatientRecord>())
             {
@@ -87,7 +87,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Records
         /// <typeparam name="TRecord">The record type model.</typeparam>
         /// <param name="comingRecord">The record to be added.</param>
         /// <returns>An <see cref="IDbOperation{TEntity}"/> : <typeparamref name="TRecord"/>.</returns>
-        protected async Task<IDbOperation<TRecord>> CreateRecord<TRecord>(TRecord comingRecord) where TRecord : IRecords
+        protected virtual async Task<IDbOperation<TRecord>> CreateRecord<TRecord>(TRecord comingRecord) where TRecord : IRecords
         {
             if(typeof(TRecord).Implements<IPatientRecord>())
             {
@@ -127,7 +127,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Records
         /// <param name="comingRecord">The record to be updated.</param>
         /// <returns>An <see cref="IDbOperation{TEntity}"/> : <typeparamref name="TRecord"/>.</returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected async Task<IDbOperation<TRecord>> UpdateRecord<TRecord>(TRecord comingRecord) where TRecord : IRecords
+        protected virtual async Task<IDbOperation<TRecord>> UpdateRecord<TRecord>(TRecord comingRecord) where TRecord : IRecords
         {
             if (typeof(TRecord).Implements<IPatientRecord>())
             {
@@ -165,7 +165,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Records
         /// <param name="ID">The record ID.</param>
         /// <returns>An <see cref="IDbOperation{TEntity}"/> : <typeparamref name="TRecord"/>.</returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected async Task<IDbOperation<TRecord>> DeleteRecord<TRecord>(Guid ID) where TRecord : IRecords
+        protected virtual async Task<IDbOperation<TRecord>> DeleteRecord<TRecord>(Guid ID) where TRecord : IRecords
         {
             if(typeof(TRecord).Implements<IPatientRecord>())
             {
