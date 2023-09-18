@@ -1,8 +1,6 @@
-﻿using MedicalStaff.WebService.Core.Helpers.Properties;
+﻿using System;
 using MedicalStaff.WebService.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using MedicalStaff.WebService.Core.Helpers.Properties;
 
 namespace MedicalStaff.WebService.Core.Helpers.Analysers
 {
