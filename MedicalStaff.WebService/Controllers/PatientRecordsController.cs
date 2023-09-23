@@ -35,9 +35,7 @@ namespace MedicalStaff.WebService.Controllers
         {
             try
             {
-                IEnumerable<PatientRecords> Records = await this.GetRecords<PatientRecords>(CPF);
-
-                return this.Ok(Records.Select(each => each.FormatSpecialProperties()));
+                return this.Ok((await this.GetRecords<PatientRecords>(CPF)).Select(it => it.FormatSpecialProperties()));
             }
             catch
             {
