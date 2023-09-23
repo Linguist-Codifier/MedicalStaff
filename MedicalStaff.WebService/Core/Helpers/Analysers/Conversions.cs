@@ -89,7 +89,7 @@ namespace MedicalStaff.WebService.Core.Helpers.Analysers
         /// <typeparam name="TCast"></typeparam>
         /// <param name="_"></param>
         /// <returns></returns>
-        public static IDbOperation<TCast> CastOperation<TEntity, TCast>(this IDbOperation<TEntity> _) where TEntity : class
+        public static IDbOperation<TCast> CastOperation<TEntity, TCast>(this IDbOperation<TEntity> _) where TEntity : class where TCast : IRecords
             => (IDbOperation<TCast>)_;
     }
 }
