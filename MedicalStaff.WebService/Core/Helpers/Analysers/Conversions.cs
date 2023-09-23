@@ -2,7 +2,6 @@
 using System.Net;
 using System.Linq;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Routing.Template;
 
 namespace MedicalStaff.WebService.Core.Helpers.Analysers
 {
