@@ -2,6 +2,7 @@
 using System.Net;
 using System.Linq;
 using System.Collections.Generic;
+using MedicalStaff.WebService.Core.Interfaces;
 
 namespace MedicalStaff.WebService.Core.Helpers.Analysers
 {
@@ -80,5 +81,15 @@ namespace MedicalStaff.WebService.Core.Helpers.Analysers
         /// <param name="_"></param>
         /// <returns></returns>
         public static IEnumerable<TOut> As<TIn, TOut>(this IEnumerable<TIn> _) => (IEnumerable<TOut>)_;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <typeparam name="TCast"></typeparam>
+        /// <param name="_"></param>
+        /// <returns></returns>
+        public static IDbOperation<TCast> CastOperation<TEntity, TCast>(this IDbOperation<TEntity> _) where TEntity : class
+            => (IDbOperation<TCast>)_;
     }
 }

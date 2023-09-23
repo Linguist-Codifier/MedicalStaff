@@ -43,16 +43,16 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Records
             {
                 try
                 {
-                    PatientRecords? FoundRecord = await this.SysContext.PatientRecords.Where(record => record.ID == ID).FirstOrDefaultAsync();
+                    PatientRecords? FoundRecord = await this.SysContext.PatientRecords.Where(it => it.ID == ID).FirstOrDefaultAsync();
 
                     if (FoundRecord is not null)
-                        return (IDbOperation<TRecord>)new DbOperation<PatientRecords>(FoundRecord, DbOperationsStatus.Success);
+                        return new DbOperation<PatientRecords>(FoundRecord, DbOperationsStatus.Success).CastOperation<PatientRecords, TRecord>();
 
-                    return (IDbOperation<TRecord>)new DbOperation<PatientRecords>(operationsStatus: DbOperationsStatus.Unallowed);
+                    return new DbOperation<PatientRecords>(operationsStatus: DbOperationsStatus.Unallowed).CastOperation<PatientRecords, TRecord>();
                 }
                 catch
                 {
-                    return (IDbOperation<TRecord>)new DbOperation<PatientRecords>(operationsStatus: DbOperationsStatus.Failed);
+                    return new DbOperation<PatientRecords>(operationsStatus: DbOperationsStatus.Failed).CastOperation<PatientRecords, TRecord>();
                 }
             }
             else
@@ -70,7 +70,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Records
             {
                 String TargetCPF = targetCPF.RemoveSpecifically(new[] { '.', '-' });
 
-                IEnumerable<PatientRecords> Records = await this.SysContext.PatientRecords.Where(record => record.CPF == TargetCPF).ToListAsync();
+                IEnumerable<PatientRecords> Records = await this.SysContext.PatientRecords.Where(it => it.CPF == TargetCPF).ToListAsync();
 
                 if (Records.Any())
                     return Records.As<PatientRecords, TRecord>();
@@ -85,36 +85,36 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Records
         /// Creates a new <typeparamref name="TRecord"/> record.
         /// </summary>
         /// <typeparam name="TRecord">The record type model.</typeparam>
-        /// <param name="comingRecord">The record to be added.</param>
+        /// <param name="it">The record to be added.</param>
         /// <returns>An <see cref="IDbOperation{TEntity}"/> : <typeparamref name="TRecord"/>.</returns>
-        protected virtual async Task<IDbOperation<TRecord>> CreateRecord<TRecord>(TRecord comingRecord) where TRecord : IRecords
+        protected virtual async Task<IDbOperation<TRecord>> CreateRecord<TRecord>(TRecord it) where TRecord : IRecords
         {
             if(typeof(TRecord).Implements<IPatientRecord>())
             {
                 Boolean AlreadyCreated = await this.SysContext.PatientRecords.AnyAsync
                 (
-                    record => record.CPF == comingRecord.CPF && record.Name == comingRecord.Name && record.Birth == comingRecord.Birth && record.Email == comingRecord.Email
-                        && record.PictureLocation == comingRecord.PictureLocation && record.Phone == comingRecord.Phone
-                        && record.Address == comingRecord.Address
+                    current => current.CPF == it.CPF && current.Name == it.Name && current.Birth == it.Birth && current.Email == it.Email
+                        && current.PictureLocation == it.PictureLocation && current.Phone == it.Phone
+                        && current.Address == it.Address
                 );
 
                 if (!AlreadyCreated)
                 {
-                    EntityEntry<PatientRecords> CreatedEntry = await this.SysContext.PatientRecords.AddAsync(new PatientRecords(comingRecord));
+                    EntityEntry<PatientRecords> CreatedEntry = await this.SysContext.PatientRecords.AddAsync(new PatientRecords(it));
 
                     try
                     {
                         Boolean SuccessOnCreating = await this.SysContext.SaveChangesAsync() > 0;
 
                         if (SuccessOnCreating)
-                            return (IDbOperation<TRecord>)new DbOperation<PatientRecords>(CreatedEntry.Entity, DbOperationsStatus.Success);
+                            return new DbOperation<PatientRecords>(CreatedEntry.Entity, DbOperationsStatus.Success).CastOperation<PatientRecords, TRecord>();
                     }
                     catch
                     {
-                        return (IDbOperation<TRecord>)new DbOperation<PatientRecords>(operationsStatus: DbOperationsStatus.Failed);
+                        return new DbOperation<PatientRecords>(operationsStatus: DbOperationsStatus.Failed).CastOperation<PatientRecords, TRecord>();
                     }
                 }
-                return (IDbOperation<TRecord>)new DbOperation<PatientRecords>(operationsStatus: DbOperationsStatus.AlreadyExists);
+                return new DbOperation<PatientRecords>(operationsStatus: DbOperationsStatus.AlreadyExists).CastOperation<PatientRecords, TRecord>();
             }
             else
                 throw new NotImplementedException("Record type implementation is not available yet.");
@@ -131,7 +131,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Records
         {
             if (typeof(TRecord).Implements<IPatientRecord>())
             {
-                PatientRecords? Records = await this.SysContext.PatientRecords.SingleOrDefaultAsync(record => record.ID == comingRecord.ID);
+                PatientRecords? Records = await this.SysContext.PatientRecords.SingleOrDefaultAsync(it => it.ID == comingRecord.ID);
 
                 if (Records is not null)
                 {
@@ -144,15 +144,15 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Records
                         Boolean Updated = await this.SysContext.SaveChangesAsync() > 0;
 
                         if (Updated)
-                            return (IDbOperation<TRecord>)new DbOperation<PatientRecords>(UpdatedEntry.Entity, DbOperationsStatus.Success);
+                            return new DbOperation<PatientRecords>(UpdatedEntry.Entity, DbOperationsStatus.Success).CastOperation<PatientRecords, TRecord>();
                     }
                     catch
                     {
-                        return (IDbOperation<TRecord>)new DbOperation<PatientRecords>(operationsStatus: DbOperationsStatus.Failed);
+                        return new DbOperation<PatientRecords>(operationsStatus: DbOperationsStatus.Failed).CastOperation<PatientRecords, TRecord>();
                     }
                 }
 
-                return (IDbOperation<TRecord>)new DbOperation<PatientRecords>(operationsStatus: DbOperationsStatus.Unallowed);
+                return new DbOperation<PatientRecords>(operationsStatus: DbOperationsStatus.Unallowed).CastOperation<PatientRecords, TRecord>();
             }
             else
                 throw new NotImplementedException("Record type implementation is not available yet.");
@@ -169,7 +169,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Records
         {
             if(typeof(TRecord).Implements<IPatientRecord>())
             {
-                PatientRecords? Record = await this.SysContext.PatientRecords.SingleOrDefaultAsync(record => record.ID == ID);
+                PatientRecords? Record = await this.SysContext.PatientRecords.SingleOrDefaultAsync(it => it.ID == ID);
 
                 if (Record is not null)
                 {
@@ -180,15 +180,15 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Records
                         Boolean Dropped = await this.SysContext.SaveChangesAsync() > 0;
 
                         if (Dropped)
-                            return (IDbOperation<TRecord>)new DbOperation<PatientRecords>(DroppedEntry.Entity, DbOperationsStatus.Success);
+                            return new DbOperation<PatientRecords>(DroppedEntry.Entity, DbOperationsStatus.Success).CastOperation<PatientRecords, TRecord>();
                     }
                     catch
                     {
-                        return (IDbOperation<TRecord>)new DbOperation<PatientRecords>(operationsStatus: DbOperationsStatus.Failed);
+                        return new DbOperation<PatientRecords>(operationsStatus: DbOperationsStatus.Failed).CastOperation<PatientRecords, TRecord>();
                     }
                 }
 
-                return (IDbOperation<TRecord>)new DbOperation<PatientRecords>(operationsStatus: DbOperationsStatus.Unallowed);
+                return new DbOperation<PatientRecords>(operationsStatus: DbOperationsStatus.Unallowed).CastOperation<PatientRecords, TRecord>();
             }
             else
                 throw new NotImplementedException("Record type implementation is not available yet.");
