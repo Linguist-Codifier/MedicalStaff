@@ -19,8 +19,7 @@ namespace MedicalStaff.WebService.Controllers
     /// <summary>
     /// This controller is responsible for providing endpoints for accessing and manipulating any <see cref="PatientRecords"/> account. This class cannot be inherited.
     /// </summary>
-    [ApiController]
-    [Route("api/patient-records")]
+    [ApiController, Route("api/patient-records")]
     public sealed partial class PatientRecordsController : PatientRecordsService, IPatientRecordsEndPoints
     {
         private readonly ILogger<PatientRecordsController> _logger;
