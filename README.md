@@ -72,7 +72,7 @@ There are two main modes of execution, one is in Debugging mode and the other is
 
 # Executing
 
-<h6><img src="Docs/Videos/Demonstration.gif" /></h6>
+<h6><img src="./Docs/Images/SolutionFile.PNG"/></h6>
 
 #
 
