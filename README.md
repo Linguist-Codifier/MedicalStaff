@@ -72,8 +72,4 @@ There are two main modes of execution, one is in Debugging mode and the other is
 
 # Executing
 
-<h6><img src="Docs/Videos/Demonstration.gif" /></h6>
-
-#
-
 [Download](https://github.com/Linguist-Codifier/MedicalStaff/archive/refs/heads/master.zip](https://github.com/Linguist-Codifier/MedicalStaff/raw/master/Docs/Videos/Preview.wmv)https://github.com/Linguist-Codifier/MedicalStaff/raw/master/Docs/Videos/Preview.wmv) a video demonstration.
