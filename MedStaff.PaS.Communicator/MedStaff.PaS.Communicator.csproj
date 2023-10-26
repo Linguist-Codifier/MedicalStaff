@@ -5,6 +5,11 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <UserSecretsId>ef3600f8-20c8-453f-8f29-7e78eb39c509</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>False</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\MedStaff.PaS.Data\MedStaff.PaS.Data.csproj" />
+    <ProjectReference Include="..\MedStaff.PaS.Domain\MedStaff.PaS.Domain.csproj" />
   </ItemGroup>
 </Project>

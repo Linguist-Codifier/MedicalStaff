@@ -22,8 +22,6 @@ namespace MedicalStaff.WebService.Controllers
     [ApiController, Route("api/patient")]
     public sealed partial class PatientAccountsController : ControllerBase, IPatientAccountEndPoints
     {
-        private readonly ILogger<PatientRecordsController> logger;
-
         private readonly IAccountService<PatientAccount> accounts;
 
         /// <summary>
