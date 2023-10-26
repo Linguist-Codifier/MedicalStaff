@@ -40,7 +40,7 @@ namespace MedicalStaff.WebService.Core.Services.Accounts
         /// <returns></returns>
         protected new async Task<TAccount> RetrieveAccountAsync<TAccount>(String patientCPF) where TAccount : IPatientAccount
         {
-            return (TAccount)(IPatientAccount)await base.RetrieveAccountAsync<PatientAccount>(patientCPF);
+            return (TAccount)(IPatientAccount)await base.GetAccountAsync<PatientAccount>(patientCPF);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace MedicalStaff.WebService.Core.Services.Accounts
         /// <returns>The provided patient account updated.</returns>
         protected new async Task<TAccountImplementation> UpdateAccountAsync<TAccountImplementation>(TAccountImplementation patientAccount) where TAccountImplementation : IPatientAccount
         {
-            return (TAccountImplementation)(IPatientAccount)await base.UpdateAccountAsync(SystemUser.Cast<PatientAccount>(patientAccount));
+            return (TAccountImplementation)(IPatientAccount)await base.UpdateAsync(SystemUser.Cast<PatientAccount>(patientAccount));
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace MedicalStaff.WebService.Core.Services.Accounts
         /// <returns>The provided patient account deleted.</returns>
         protected new async Task<Boolean> DeleteAccount<TAccountImplementation>(String patientCPF) where TAccountImplementation : IPatientAccount
         {
-            return Convert.ToBoolean(await base.DeleteAccount<PatientAccount>(patientCPF));
+            return Convert.ToBoolean(await base.DeleteAsync<PatientAccount>(patientCPF));
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace MedicalStaff.WebService.Core.Services.Accounts
         /// <returns>The created patient account.</returns>
         protected async Task<TAccountImplementation> CreateAccount<TAccountImplementation>(TAccountImplementation patientAccount) where TAccountImplementation : IPatientAccount
         {
-            IPatientAccount InsertedPatient = await this.Push(SystemUser.Cast<PatientAccount>(patientAccount));
+            IPatientAccount InsertedPatient = await this.CreateAccount(SystemUser.Cast<PatientAccount>(patientAccount));
 
             return InsertedPatient.CPF is not null ? (TAccountImplementation)InsertedPatient : (TAccountImplementation)PatientAccount.Empty();
         }

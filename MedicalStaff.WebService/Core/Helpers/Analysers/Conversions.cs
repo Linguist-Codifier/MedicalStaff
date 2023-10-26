@@ -76,11 +76,10 @@ namespace MedicalStaff.WebService.Core.Helpers.Analysers
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="TIn"></typeparam>
         /// <typeparam name="TOut"></typeparam>
         /// <param name="_"></param>
         /// <returns></returns>
-        public static IEnumerable<TOut> As<TIn, TOut>(this IEnumerable<TIn> _) => (IEnumerable<TOut>)_;
+        public static IEnumerable<TOut> Cast<TOut>(this IEnumerable<IPatientRecord> _) => (IEnumerable<TOut>)_;
 
         /// <summary>
         /// 

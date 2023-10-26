@@ -12,80 +12,75 @@ using MedicalStaff.WebService.Core.Helpers.Analysers;
 using MedicalStaff.WebService.Core.Helpers.Filters;
 using MedicalStaff.WebService.Core.Models.Db.Physician;
 using MedicalStaff.WebService.Core.Models.Transfer.Physician.SignUp;
+using MedicalStaff.WebService.Core.Infrastructure.Accounts;
 
 namespace MedicalStaff.WebService.Controllers
 {
     /// <summary>
-    /// This controller is responsible for providing endpoints for accessing and manipulating any Medical Practioner account. This class cannot be inherited.
+    /// This controller is responsible for providing endpoints for accessing and manipulating any Medical Practitioner account. This class cannot be inherited.
     /// </summary>
     [ApiController, Route("api/physician")]
-    public sealed partial class PhysicianAccountsController : PhysicianAccountService, IPhysicianAccountEndPoints
+    public sealed partial class PhysicianAccountsController : ControllerBase, IPhysicianAccountEndPoints
     {
-        private readonly ILogger<PhysicianAccountsController> _logger;
+        private readonly IAccountService<PhysicianAccount> accounts;
 
-        #pragma warning disable CS1591
-        public PhysicianAccountsController(ILogger<PhysicianAccountsController> logger, SystemDbContext applicationDbContext) 
-            : base(applicationDbContext) => this._logger = logger;
-        #pragma warning restore CS1591
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="applicationDbContext"></param>
+        public PhysicianAccountsController(SystemDbContext applicationDbContext) => this.accounts = new AccountService<PhysicianAccount>(applicationDbContext);
 
         /// <inheritdoc/>
         [HttpGet("accounts")]
-        public async Task<IActionResult> GetPhysicianAccountsAsync()
-            => this.Ok(await this.QueryAccountsAsync<PhysicianAccount>());
+        public async Task<IActionResult> GetAllAsync() => this.Ok(await this.accounts.QueryAccountsAsync<PhysicianAccount>());
 
         /// <inheritdoc/>
-        [HttpGet("credential/{CPF}")]
-        public async Task<IActionResult> GetPhysicianAccountAsync([Required][CPF] String CPF)
+        [HttpGet("account-credential/{CPF}")]
+        public async Task<IActionResult> GetCredentialAsync([Required, CPF] String CPF)
         {
-            IMedicalAccountCredential PhysicianCredentials = await this.RequestAccountCredentialAsync<MedicalAccountCredential>(CPF);
+            IMedicalAccountCredential accountCredential = await this.accounts.GetCredentialAsync<MedicalAccountCredential>(CPF);
 
-            if (!PhysicianCredentials.IsNullOrEmpty())
-                return this.Ok((MedicalAccountCredential)PhysicianCredentials);
+            if (!accountCredential.IsNullOrEmpty())
+                return this.Ok(accountCredential.CastFor<MedicalAccountCredential>());
 
             return this.NotFound();
         }
 
         /// <inheritdoc/>
-        [HttpPost("account")]
-        public async Task<IActionResult> CreatePhysicianAccountAsync([Required][FromBody] PhysicianAccountDTO account)
+        [HttpPost("create-account")]
+        public async Task<IActionResult> CreateAsync([Required, FromBody] PhysicianAccountDTO account)
         {
-            try
+            IMedicalAccountCredential accountCredential = await this.accounts.GetCredentialAsync<MedicalAccountCredential>(account.CPF);
+
+            if (accountCredential.IsNullOrEmpty())
             {
-                IMedicalAccountCredential PhysicianCredentials = await this.RequestAccountCredentialAsync<MedicalAccountCredential>(account.CPF);
+                IDbOperation<PhysicianAccount> accountCreation = await this.accounts.Create(new PhysicianAccount(account));
 
-                if (PhysicianCredentials.IsNullOrEmpty())
-                {
-                    IPhysicianAccount CreatedPhysician = await this.CreateAccount<PhysicianAccount>(new PhysicianAccount(account));
-
-                    return this.StatusCode(HttpStatusCode.Created.ToInt32(), CreatedPhysician);
-                }
-
-                return this.StatusCode(HttpStatusCode.Forbidden.ToInt32());
+                if (accountCreation.OperationStatus == Core.Helpers.Properties.DbOperationsStatus.Success)
+                    return this.StatusCode(HttpStatusCode.Created.ToInt32(), accountCreation.Result);
             }
-            catch
-            {
-                return this.StatusCode(HttpStatusCode.InternalServerError.ToInt32());
-            }
+
+            return this.StatusCode(HttpStatusCode.Forbidden.ToInt32());
         }
 
         /// <inheritdoc/>
         [HttpPut("account/{CPF}")]
-        public async Task<IActionResult> UpdatePhysicianAccountAsync([Required][CPF]  String CPF, [FromBody][Required] PhysicianAccountDTO target)
+        public async Task<IActionResult> UpdateAsync([Required, CPF] String CPF, [FromBody, Required] PhysicianAccountDTO target)
         {
-            PhysicianAccount CurrentPhysician = await this.RetrieveAccountAsync<PhysicianAccount>(CPF);
+            PhysicianAccount current = await this.accounts.GetAccountAsync<PhysicianAccount>(CPF);
 
-            if (CurrentPhysician.IsValid())
+            if (current.IsValid())
             {
-                CurrentPhysician.CPF = target.CPF;
-                CurrentPhysician.CRM = target.CRM;
-                CurrentPhysician.Name = target.Name;
-                CurrentPhysician.Password = target.Password;
-                CurrentPhysician.Email = target.Email;
+                current.CPF = target.CPF;
+                current.CRM = target.CRM;
+                current.Name = target.Name;
+                current.Password = target.Password;
+                current.Email = target.Email;
 
-                PhysicianAccount UpdatedCurrentPhysician = await this.UpdateAccountAsync<PhysicianAccount>(new PhysicianAccount(CurrentPhysician));
+                PhysicianAccount updated = await this.accounts.UpdateAsync<PhysicianAccount>(new PhysicianAccount(current));
 
-                if (UpdatedCurrentPhysician.IsValid())
-                    return this.Ok(UpdatedCurrentPhysician);
+                if (updated.IsValid())
+                    return this.Ok(updated);
 
                 return this.BadRequest();
             }
@@ -94,14 +89,14 @@ namespace MedicalStaff.WebService.Controllers
 
         /// <inheritdoc/>
         [HttpDelete("account/{CPF}")]
-        public async Task<IActionResult> DeletePhysicianAsync([Required][CPF] String CPF)
+        public async Task<IActionResult> DeleteAsync([Required, CPF] String CPF)
         {
-            PhysicianAccount CurrentPhysician = await this.RetrieveAccountAsync<PhysicianAccount>(CPF);
+            PhysicianAccount current = await this.accounts.GetAccountAsync<PhysicianAccount>(CPF);
 
-            if (CurrentPhysician.IsValid())
+            if (current.IsValid())
             {
-                if (await this.DeleteAccount<PhysicianAccount>(CPF))
-                    return this.Ok(new PhysicianAccount(CurrentPhysician));
+                if (await this.accounts.DeleteAsync<PhysicianAccount>(CPF))
+                    return this.Ok(new PhysicianAccount(current));
 
                 return this.StatusCode(HttpStatusCode.InternalServerError.ToInt32());
             }

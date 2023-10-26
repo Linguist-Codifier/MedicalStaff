@@ -15,7 +15,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Accounts
     /// <summary>
     /// Manages accounts repositories.
     /// </summary>
-    public partial class AccountsRepository : ControllerBase
+    public partial class AccountsRepository
     {
         /// <summary>
         /// The database context.
@@ -26,8 +26,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Accounts
         /// Initializes a new instance of <see cref="AccountsRepository"/>.
         /// </summary>
         /// <param name="applicationDbContext">The system's database context through where the <see cref="AccountsRepository"/> access and perform database-centered critical IO operations.</param>
-        protected AccountsRepository(SystemDbContext applicationDbContext)
-            => this.SysContext = applicationDbContext;
+        protected AccountsRepository(SystemDbContext applicationDbContext) => this.SysContext = applicationDbContext;
 
         /// <summary>
         /// 
@@ -36,7 +35,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Accounts
         /// <param name="userCPF"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected virtual async Task<TUser> RetrieveAccountAsync<TUser>(String userCPF) where TUser : ISystemUser
+        protected virtual async Task<TUser> GetAccountAsync<TUser>(String userCPF) where TUser : ISystemUser
         {
             if (typeof(TUser).Implements<IPhysicianAccount>())
             {
@@ -75,7 +74,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Accounts
         /// <param name="user"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected virtual async Task<TUser> Push<TUser>(TUser user) where TUser : ISystemUser
+        protected virtual async Task<TUser> Create<TUser>(TUser user) where TUser : ISystemUser
         {
             if (typeof(TUser).Implements<IPhysicianAccount>())
             {
@@ -130,7 +129,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Accounts
         /// <param name="user"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected virtual async Task<TUser> UpdateAccountAsync<TUser>(TUser user) where TUser : ISystemUser
+        protected virtual async Task<TUser> UpdateAsync<TUser>(TUser user) where TUser : ISystemUser
         {
             if (typeof(TUser).Implements<IPhysicianAccount>())
             {
@@ -185,13 +184,13 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Accounts
         /// <param name="userCPF"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected virtual async Task<Boolean> DeleteAccount<TUser>(String userCPF) where TUser : ISystemUser
+        protected virtual async Task<Boolean> DeleteAsync<TUser>(String userCPF) where TUser : ISystemUser
         {
             if (typeof(TUser).Implements<IPhysicianAccount>())
             {
                 try
                 {
-                    IPhysicianAccount OnDeleting = await this.RetrieveAccountAsync<PhysicianAccount>(userCPF);
+                    IPhysicianAccount OnDeleting = await this.GetAccountAsync<PhysicianAccount>(userCPF);
 
                     this.SysContext.PhysicianAccounts.Remove(new PhysicianAccount(OnDeleting));
 
@@ -207,7 +206,7 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Accounts
             {
                 try
                 {
-                    IPatientAccount OnDeleting = await this.RetrieveAccountAsync<PatientAccount>(userCPF);
+                    IPatientAccount OnDeleting = await this.GetAccountAsync<PatientAccount>(userCPF);
 
                     this.SysContext.PatientsAccounts.Remove(new PatientAccount(OnDeleting));
 

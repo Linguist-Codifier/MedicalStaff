@@ -73,9 +73,9 @@ namespace MedicalStaff.WebService.Core.Infrastructure.Records
                 IEnumerable<PatientRecords> Records = await this.SysContext.PatientRecords.Where(it => it.CPF == TargetCPF).ToListAsync();
 
                 if (Records.Any())
-                    return Records.As<PatientRecords, TRecord>();
+                    return Records.Cast<TRecord>();
 
-                return new List<PatientRecords>(0).As<PatientRecords, TRecord>();
+                return new List<PatientRecords>(0).Cast<TRecord>();
             }
             else
                 throw new NotImplementedException("Type implementation is not available yet.");

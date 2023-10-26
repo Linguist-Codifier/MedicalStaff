@@ -14,12 +14,28 @@ namespace MedicalStaff.WebService.Core.Helpers.Analysers
         /// <summary>
         /// Verifies whether this current account credential type implementation is valid or not. A valid <see cref="MedicalAccountCredential"/> account is regarded as such when the '<see cref="MedicalAccountCredential.Credential"/>' is not neither <see langword="null"></see> nor empty.
         /// </summary>
-        /// <typeparam name="TCredential">The type of implementation of this account credentials. <typeparamref name="TCredential"/> must implement <see cref="IAccountCredentials"/>.</typeparam>
-        /// <param name="_">This <see cref="IAccountCredentials"/> implementation.</param>
+        /// <typeparam name="TCredential">The type of implementation of this account credentials. <typeparamref name="TCredential"/> must implement <see cref="IAccountCredential"/>.</typeparam>
+        /// <param name="_">This <see cref="IAccountCredential"/> implementation.</param>
         /// <returns><see langword="true"/> if this current <typeparamref name="TCredential"/> credential is valid; otherwise, <see langword="false"/>.</returns>
-        public static Boolean IsNullOrEmpty<TCredential>(this TCredential _) where TCredential : IAccountCredentials
+        public static Boolean IsNullOrEmpty<TCredential>(this TCredential _) where TCredential : IAccountCredential
         {
             return _.Credential.IsNullOrEmpty<Char>();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TCredential"></typeparam>
+        /// <typeparam name="TOut"></typeparam>
+        /// <param name="_"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static TOut CastFor<TOut>(this IAccountCredential _) where TOut : IAccountCredential
+        {
+            if(typeof(TOut).Equals(typeof(MedicalAccountCredential)))
+                return (TOut)_;
+
+            throw new Exception("Type conversion is not covered.");
         }
 
         /// <summary>

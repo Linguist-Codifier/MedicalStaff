@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using MedicalStaff.WebService.Core.Data;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MedicalStaff.WebService.Core.Interfaces;
+using MedicalStaff.WebService.Core.Models.Db.Physician;
+using MedicalStaff.WebService.Core.Services.Accounts;
 
 namespace MedicalStaff.WebService
 {
@@ -16,15 +18,15 @@ namespace MedicalStaff.WebService
         /// <summary>
         /// Application startup entry point.
         /// </summary>
-        /// <param name="args"></param>
+        /// <param name="args">Start up arguments.</param>
         public static void Main(String[] args)
         {
             WebApplicationBuilder Builder = WebApplication.CreateBuilder(args);
 
             Builder.Services.AddDbContext<SystemDbContext>(options =>
             {
-                options.UseSqlServer(Builder.Configuration.GetConnectionString("DatabaseConnectionString")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-                //options.UseInMemoryDatabase("development").UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                //options.UseSqlServer(Builder.Configuration.GetConnectionString("DatabaseConnectionString")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                options.UseInMemoryDatabase("development").UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
 
             Builder.Services.AddControllers();
