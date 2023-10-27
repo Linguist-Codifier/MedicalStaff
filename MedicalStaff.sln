@@ -31,6 +31,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedStaff.PaS.Data", "MedSta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedStaff.ReS.Data", "MedStaff.ReS.Data\MedStaff.ReS.Data.csproj", "{AFA6F1E8-7A86-4EC9-8E0C-111436B17C4B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MedStaff.Infra", "MedStaff.Infra", "{F685B929-134B-48B9-9F84-63CA500A4EC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedStaff.Infra", "MedStaff.Infra\MedStaff.Infra.csproj", "{8F71B70C-57E4-4BB1-83BE-2A913199C191}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +85,10 @@ Global
 		{AFA6F1E8-7A86-4EC9-8E0C-111436B17C4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFA6F1E8-7A86-4EC9-8E0C-111436B17C4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFA6F1E8-7A86-4EC9-8E0C-111436B17C4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F71B70C-57E4-4BB1-83BE-2A913199C191}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F71B70C-57E4-4BB1-83BE-2A913199C191}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F71B70C-57E4-4BB1-83BE-2A913199C191}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F71B70C-57E4-4BB1-83BE-2A913199C191}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +103,7 @@ Global
 		{2DC46317-04E3-438A-97B1-983344F74488} = {12F2B8B9-E0AF-4C88-981C-C907C2EA7EC0}
 		{AEC2320A-9AAC-4118-B491-3F322EF13976} = {12F2B8B9-E0AF-4C88-981C-C907C2EA7EC0}
 		{AFA6F1E8-7A86-4EC9-8E0C-111436B17C4B} = {12F2B8B9-E0AF-4C88-981C-C907C2EA7EC0}
+		{8F71B70C-57E4-4BB1-83BE-2A913199C191} = {F685B929-134B-48B9-9F84-63CA500A4EC2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CE42035B-013E-4FE3-824A-4B61C131DBCF}
